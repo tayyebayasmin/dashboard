@@ -10,7 +10,7 @@ import {
   Security,
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
-export default function TopDropDown({ open, handleClose }) {
+export default function TopDropDown({ isExapnd,setexpand }) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
@@ -26,7 +26,11 @@ export default function TopDropDown({ open, handleClose }) {
         borderRadius: "10px",
       }}
     >
-      <Link style={{ textDecoration: "none" }}>
+      <Link
+        to={"./rewards"}
+        style={{ textDecoration: "none" }}
+        onClick={() => setexpand(false)}
+      >
         <Box
           sx={{
             display: "flex",
@@ -40,7 +44,11 @@ export default function TopDropDown({ open, handleClose }) {
           <CustomText text={"Account"} size="18px" />
         </Box>
       </Link>
-      <Link style={{ textDecoration: "none" }}>
+      <Link
+        style={{ textDecoration: "none" }}
+        to={"./security"}
+        onClick={() => setexpand(false)}
+      >
         <Box
           sx={{
             display: "flex",
@@ -55,7 +63,11 @@ export default function TopDropDown({ open, handleClose }) {
           <CustomText text={"Security"} size="18px" />
         </Box>
       </Link>
-      <Link style={{ textDecoration: "none" }}>
+      <Link
+        style={{ textDecoration: "none" }}
+        to={"./devices"}
+        onClick={() => setexpand(false)}
+      >
         <Box
           sx={{
             display: "flex",
@@ -71,7 +83,11 @@ export default function TopDropDown({ open, handleClose }) {
           <CustomText text={"Devices"} size="18px" />
         </Box>
       </Link>
-      <Link style={{ textDecoration: "none" }}>
+      <Link
+        style={{ textDecoration: "none" }}
+        to={"./accessProfiles"}
+        onClick={() => setexpand(false)}
+      >
         <Box
           sx={{
             display: "flex",
@@ -88,7 +104,7 @@ export default function TopDropDown({ open, handleClose }) {
         </Box>
       </Link>
       <img src={"../../assets/Line.png"} />
-      <Link style={{ textDecoration: "none" }}>
+      <Link style={{ textDecoration: "none" }} onClick={() => setexpand(false)} to={'/'}>
         <Box
           sx={{
             display: "flex",
@@ -105,7 +121,7 @@ export default function TopDropDown({ open, handleClose }) {
         </Box>
       </Link>
       <img src={"../../assets/Line.png"} />
-      <Link style={{ textDecoration: "none" }}>
+      <Link style={{ textDecoration: "none" }} onClick={() => setexpand(false)} to={'/'}>
         <Box
           sx={{
             display: "flex",

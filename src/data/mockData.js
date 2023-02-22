@@ -25,6 +25,17 @@ export const mockDataFunds = [
     PayoutETA: "N/A",
   },
 ];
+export const mockDataProfiles = [
+  {
+    id: 1,
+    name: "---",
+    username: "danish.009",
+    webAccess: true,
+    apiAccess: false,
+    accessPermissions:'Master Account',
+    state:'Active'
+  },
+];
 export const mockDataWallets = [
   {
     id: 1,
@@ -42,6 +53,15 @@ export const mockDataKda = [
     detail: "N/A",
     date: "28-02-2023",
   },
+];
+export const mockDataDevices = [
+  // {
+  //   id: 1,
+  //   deviceLabel: "50 $",
+  //   connected: "",
+  //   lastUsed: "",
+  //   unlink: "",
+  // },
 ];
 export const mockDataPayoutsHistory = [
   {

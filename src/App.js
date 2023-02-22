@@ -15,6 +15,9 @@ import OverviewPage from './scenes/overview'
 import KDAAccountPage from "./scenes/kdaAccount";
 import PayoutsHistoryPage from "./scenes/payoutsHistory";
 import ActivityHistoryPage from "./scenes/activityHistory";
+import SecurityPage from "./scenes/Security";
+import DevicesPage from "./scenes/devices";
+import AccessProfilesPage from "./scenes/accessProfiles";
 
 
 function App() {
@@ -41,6 +44,9 @@ function App() {
               <Route exact path="/wallets" element={<WalletsPage />} />
               <Route exact path="/payoutshistory" element={<PayoutsHistoryPage />} />
               <Route exact path="/activityhistory" element={<ActivityHistoryPage />} />
+              <Route exact path="/security" element={<SecurityPage />} />
+              <Route exact path="/devices" element={<DevicesPage />} />
+              <Route exact path="/accessProfiles" element={<AccessProfilesPage />} />
 
             </Routes>
           </main>

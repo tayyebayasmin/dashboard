@@ -8,6 +8,8 @@ const CustomText = ({
   size = "16px",
   ml = "10px",
   mr = "0px",
+  mb="0px",
+  mt="0px",
   weight,
 }) => {
   const theme = useTheme();
@@ -19,7 +21,9 @@ const CustomText = ({
         fontSize: size,
         fontFamily: "Lato",
         marginLeft: ml,
+        marginBottom:mb,
         marginRight: mr,
+        marginTop:mt,
         textAlign: "justify",
         color: theme.palette.mode === "dark" ? "white" : "#361956",
       }}

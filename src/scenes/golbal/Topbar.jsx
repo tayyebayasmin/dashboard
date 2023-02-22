@@ -103,7 +103,7 @@ const Topbar = () => {
           {isExapnd ? <ExpandLess /> : <ExpandMore />}
         </IconButton>
       </Box>
-      {isExapnd && <TopDropDown />}
+      {isExapnd && <TopDropDown isExapnd={isExapnd} setIsExpand={setIsExpand}/>}
     </Box>
   );
 };

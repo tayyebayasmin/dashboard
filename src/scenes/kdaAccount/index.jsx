@@ -9,7 +9,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { mockDataFunds, mockDataKda, mockDataProject } from "../../data/mockData";
+import {  mockDataKda } from "../../data/mockData";
 import Header from "../../components/Header/Header";
 import CustomText from "../../components/CustomText/CustomText";
 const KDAAccountPage = () => {

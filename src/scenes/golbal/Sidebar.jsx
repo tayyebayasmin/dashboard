@@ -1,14 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { tokens } from "../../themes";
-import {
-  Dashboard,
-  ExpandMore,
-  LiveHelpRounded,
-} from "@mui/icons-material";
+import { Dashboard, ExpandMore, LiveHelpRounded } from "@mui/icons-material";
 const Item = ({ title, to, icon, selected, setSelected, rightIcon }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -18,6 +14,9 @@ const Item = ({ title, to, icon, selected, setSelected, rightIcon }) => {
       style={{
         color: selected === title ? "#28094A" : "white",
         backgroundColor: selected === title ? "#ffffff" : undefined,
+        "&:hover": {
+          color: "red",
+        },
       }}
       onClick={() => setSelected(title)}
       icon={
@@ -77,18 +76,44 @@ const ProSidebar = () => {
   const [selected, setSelected] = useState("Dashboard");
   const [isCollapse, setCollapse] = useState(false);
   const [selectedHistory, setSelectedHistory] = useState("Rewards History");
+  const [selectedReward, setSelecteReward] = useState("Account");
 
   return (
-    <Sidebar backgroundColor="#28094A" style={{ height: location.pathname==='/'?1300:location.pathname==='/history'?900: undefined }}>
-      <Menu iconShape="square">
+    <Sidebar
+      backgroundColor="#28094A"
+      style={{
+        height:
+          location.pathname === "/"
+            ? 1300
+            : location.pathname === "/history"
+            ? 900
+            : undefined,
+      }}
+    >
+      <Menu
+        iconShape="square"
+        menuItemStyles={{
+          button: ({ level}) => {
+            if (level === 0) {
+              return {
+                "&:hover": {
+                  color: "#28094A !important",
+                },
+              };
+            }
+          },
+        }}
+      >
         <Box mb="50px">
           <Box display="flex" justifyContent="center" alignItems="center">
-            <img
-              alt="logo"
-              width="100px"
-              height="100px"
-              src={`../../assets/logo.png`}
-            />
+            <Link to={"/"}>
+              <img
+                alt="logo"
+                width="100px"
+                height="100px"
+                src={`../../assets/logo.png`}
+              />
+            </Link>
           </Box>
         </Box>
         {(location.pathname == "/" ||
@@ -134,6 +159,42 @@ const ProSidebar = () => {
                 icon={<img width={"22px"} src={`../../assets/Prize.png`} />}
                 // selected={selected}
                 // setSelected={setSelected}
+              />
+            </Link>
+          </Box>
+        )}
+        {(location.pathname == "/rewards" ||
+          location.pathname == "/security" ||
+          location.pathname == "/devices" ||
+          location.pathname == "/accessProfiles") && (
+          <Box>
+            <Link to={"/rewards"}>
+              <Item
+                OnPressIcon={() => setCollapse(!isCollapse)}
+                title="Account"
+                selected={selectedReward}
+                setSelected={setSelecteReward}
+              />
+            </Link>
+            <Link to={"/security"}>
+              <Item
+                title="Security"
+                selected={selectedReward}
+                setSelected={setSelecteReward}
+              />
+            </Link>
+            <Link to={"/devices"}>
+              <Item
+                title="Devices"
+                selected={selectedReward}
+                setSelected={setSelecteReward}
+              />
+            </Link>
+            <Link to={"/accessProfiles"}>
+              <Item
+                title="Access Profiles"
+                selected={selectedReward}
+                setSelected={setSelecteReward}
               />
             </Link>
           </Box>
