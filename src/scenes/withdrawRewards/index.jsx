@@ -1,46 +1,28 @@
-import React, { useState } from "react";
+import React from "react";
 import { useTheme, Box, Switch, Button } from "@mui/material";
 import { tokens } from "../../themes";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
-import { styled } from "@mui/material/styles";
+import WithDrawModal from "../../components/WithDrawModal";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { mockDataWallets } from "../../data/mockData";
+import { mockDataWithdraw } from "../../data/mockData";
 import Header from "../../components/Header/Header";
-import close from "./close.png";
-import vector from "./Vector.png";
-import CreateWallet from "../../components/CreateWallet";
-const WalletsPage = () => {
+import { useState } from "react";
+
+const WithdrawRewardsPage = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [createWalletModal, SetCreateWalletModal] = useState(false);
-  const handleClose = () => {
-    SetCreateWalletModal(false);
-  };
+  const [withdraw, setWithdraw] = useState(true);
+  const handleClose = () => setWithdraw(false);
   return (
     <Box ml="80px" mr="80px" mt="30px">
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header Title="Wallets" />
-        <Button
-          sx={{
-            ml: "10px",
-            paddingInline: "20px",
-            background: "#C78FB7",
-            borderRadius: "20px",
-          }}
-          variant="contained"
-          onClick={() => SetCreateWalletModal(true)}
-        >
-          Add new Wallet
-        </Button>
+        <Header Title="Rewards" />
       </Box>
-      {createWalletModal && (
-        <CreateWallet open={createWalletModal} handleClose={handleClose} />
-      )}
       <TableContainer
         component={Paper}
         style={{
@@ -60,23 +42,15 @@ const WalletsPage = () => {
                   color: theme.palette.mode === "light" ? "#361956" : "white",
                 }}
               >
-                Wallet Name
+                Name
               </TableCell>
               <TableCell
-                align="left"
+                align="center"
                 style={{
                   color: theme.palette.mode === "light" ? "#361956" : "white",
                 }}
               >
-                Type
-              </TableCell>
-              <TableCell
-                align="left"
-                style={{
-                  color: theme.palette.mode === "light" ? "#361956" : "white",
-                }}
-              >
-                Details
+                Reward Amount
               </TableCell>
               <TableCell
                 align="center"
@@ -89,7 +63,7 @@ const WalletsPage = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {mockDataWallets.map((row) => (
+            {mockDataWithdraw.map((row) => (
               <TableRow
                 key={row.name}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -104,20 +78,12 @@ const WalletsPage = () => {
                   {row.name}
                 </TableCell>
                 <TableCell
-                  align="left"
+                  align="center"
                   style={{
                     color: theme.palette.mode === "light" ? "#361956" : "white",
                   }}
                 >
-                  {row.type}
-                </TableCell>
-                <TableCell
-                  align="left"
-                  style={{
-                    color: theme.palette.mode === "light" ? "#361956" : "white",
-                  }}
-                >
-                  {row.details}
+                  ${row.amount}
                 </TableCell>
                 <TableCell
                   align="center"
@@ -125,59 +91,27 @@ const WalletsPage = () => {
                     color: theme.palette.mode === "light" ? "#361956" : "white",
                   }}
                 >
-                  <MaterialUISwitch />
+                  <Button
+                    sx={{
+                      width: "45%",
+                      ml: "10px",
+                      color: "white",
+                      marginTop: "20px",
+                      background: "#F85844",
+                      borderRadius: "20px",
+                    }}
+                    onClick={() => setWithdraw(true)}
+                  >
+                    Withdraw
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
+      {withdraw && <WithDrawModal open={withdraw} handleClose={handleClose} />}
     </Box>
   );
 };
-export default WalletsPage;
-const MaterialUISwitch = styled(Switch)(({ theme }) => ({
-  width: 80,
-  height: 45,
-  padding: 7,
-  "& .MuiSwitch-switchBase": {
-    margin: 1,
-    padding: 0,
-    transform: "translateX(6px)",
-    "&.Mui-checked": {
-      width: 80,
-      color: "#fff",
-      transform: "translateX(22px)",
-      "& .MuiSwitch-thumb:before": {
-        backgroundImage: `url(${close})`,
-      },
-      "& + .MuiSwitch-track": {
-        opacity: 1,
-        backgroundColor: "#F66856",
-      },
-    },
-  },
-  "& .MuiSwitch-thumb": {
-    backgroundColor: "white",
-    width: 28,
-    height: 25,
-    marginTop: 9,
-    padding: 3,
-    "&:before": {
-      content: "''",
-      position: "absolute",
-      width: "100%",
-      height: "100%",
-      left: 0,
-      top: 4,
-      backgroundRepeat: "no-repeat",
-      backgroundPosition: "center",
-      backgroundImage: `url(${vector})`,
-    },
-  },
-  "& .MuiSwitch-track": {
-    opacity: 1,
-    backgroundColor: "#2C9F30",
-    borderRadius: 25,
-  },
-}));
+export default WithdrawRewardsPage;

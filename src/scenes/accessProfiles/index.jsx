@@ -1,11 +1,10 @@
-import React from "react";
-import { useTheme, Box, Button } from "@mui/material";
+import React, { useState } from "react";
+import { useTheme, Box, Button, IconButton } from "@mui/material";
 import { tokens } from "../../themes";
 import Header from "../../components/Header/Header";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
-import { styled } from "@mui/material/styles";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
@@ -13,9 +12,20 @@ import Paper from "@mui/material/Paper";
 import CustomText from "../../components/CustomText/CustomText";
 import { mockDataProfiles } from "../../data/mockData";
 import { Check, Clear, Edit } from "@mui/icons-material";
+import EditProfileModal from "../../components/EditProfilesModal";
+import { Link } from "react-router-dom";
+import CreateNewProfile from "../../components/CreateNewProfile";
+import PermissionModal from "../../components/PermissionModal";
 const AccessProfilesPage = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [EditModal, setEditModal] = useState(false);
+  const handleClose = () => setEditModal(false);
+  const [newProfile, setNewProfile] = useState(false);
+  const CloseNewProfileModal = () => setNewProfile(false);
+  const [permission, setPermission] = useState(false);
+  const ClosePermissionModal = () => setPermission(false);
+
   return (
     <Box m="20px">
       <Box display="flex" justifyContent="space-between" alignItems="center">
@@ -24,8 +34,8 @@ const AccessProfilesPage = () => {
       <Box
         sx={{
           display: "flex",
-          flexDirection:'column',
-          marginLeft:'8px'
+          flexDirection: "column",
+          marginLeft: "8px",
         }}
       >
         <CustomText
@@ -43,14 +53,28 @@ const AccessProfilesPage = () => {
             "Access profiles can be flexibly (de)activated or changed at any time by the master account."
           }
         />
-        <CustomText mt={'12px'} text={"Click here for permissions overview"} />
+        <Button
+          sx={{
+            display: "flex",
+            justifyContent: "flex-start",
+          }}
+          onClick={() => setPermission(true)}
+        >
+          <CustomText
+            mt={"12px"}
+            text={"Click here for permissions overview"}
+          />
+        </Button>
       </Box>
+      {permission && (
+        <PermissionModal open={permission} handleClose={ClosePermissionModal} />
+      )}
       <TableContainer
         component={Paper}
         style={{
-         width:'90%',
-         marginLeft:'3%',
-         marginTop:'2%',
+          width: "90%",
+          marginLeft: "3%",
+          marginTop: "2%",
           backgroundColor: theme.palette.mode === "dark" ? "#28094A" : "white",
         }}
       >
@@ -83,7 +107,7 @@ const AccessProfilesPage = () => {
                   color: theme.palette.mode === "light" ? "#361956" : "white",
                 }}
               >
-              Web Access
+                Web Access
               </TableCell>
               <TableCell
                 align="center"
@@ -91,7 +115,7 @@ const AccessProfilesPage = () => {
                   color: theme.palette.mode === "light" ? "#361956" : "white",
                 }}
               >
-              Api Access
+                Api Access
               </TableCell>
               <TableCell
                 align="center"
@@ -99,7 +123,7 @@ const AccessProfilesPage = () => {
                   color: theme.palette.mode === "light" ? "#361956" : "white",
                 }}
               >
-               Access Permissions
+                Access Permissions
               </TableCell>
               <TableCell
                 align="center"
@@ -107,7 +131,7 @@ const AccessProfilesPage = () => {
                   color: theme.palette.mode === "light" ? "#361956" : "white",
                 }}
               >
-               Status
+                Status
               </TableCell>
               <TableCell
                 align="center"
@@ -148,8 +172,7 @@ const AccessProfilesPage = () => {
                     color: theme.palette.mode === "light" ? "#361956" : "white",
                   }}
                 >
-                  {row.webAccess?<Check/> :<Clear/>}
-                 
+                  {row.webAccess ? <Check /> : <Clear />}
                 </TableCell>
                 <TableCell
                   align="center"
@@ -157,7 +180,7 @@ const AccessProfilesPage = () => {
                     color: theme.palette.mode === "light" ? "#361956" : "white",
                   }}
                 >
-                  {row.apiAccess?<Check/> :<Clear/>}
+                  {row.apiAccess ? <Check /> : <Clear />}
                 </TableCell>
                 <TableCell
                   align="center"
@@ -181,26 +204,38 @@ const AccessProfilesPage = () => {
                     color: theme.palette.mode === "light" ? "#361956" : "white",
                   }}
                 >
-                  <Edit/>
+                  <IconButton onClick={() => setEditModal(true)}>
+                    <Edit />
+                  </IconButton>
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
+      {EditModal && (
+        <EditProfileModal open={EditModal} handleClose={handleClose} />
+      )}
       <Button
-          sx={{
-            width: "150px",
-            ml: "3%",
-            marginTop: "30px",
-            background: "#F85844",
-            borderRadius: "20px",
-            marginBottom:'20px'
-          }}
-          variant="contained"
-        >
-          Create New
-        </Button>
+        sx={{
+          width: "150px",
+          ml: "3%",
+          marginTop: "30px",
+          background: "#F85844",
+          borderRadius: "20px",
+          marginBottom: "20px",
+        }}
+        variant="contained"
+        onClick={() => setNewProfile(true)}
+      >
+        Create New
+      </Button>
+      {newProfile && (
+        <CreateNewProfile
+          open={newProfile}
+          handleClose={CloseNewProfileModal}
+        />
+      )}
     </Box>
   );
 };

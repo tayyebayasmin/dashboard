@@ -4,10 +4,11 @@ import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { tokens } from "../../themes";
-import { Dashboard, ExpandMore, LiveHelpRounded } from "@mui/icons-material";
+import { Dashboard, ExpandMore, LiveHelpRounded, MilitaryTechOutlined } from "@mui/icons-material";
 const Item = ({ title, to, icon, selected, setSelected, rightIcon }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
   return (
     <MenuItem
       active={selected === title}
@@ -82,12 +83,9 @@ const ProSidebar = () => {
     <Sidebar
       backgroundColor="#28094A"
       style={{
-        height:
-          location.pathname === "/"
-            ? 1300
-            : location.pathname === "/history"
-            ? 900
-            : undefined,
+        top:0,
+        bottom:0,
+        minHeight:'100vh',
       }}
     >
       <Menu
@@ -118,7 +116,8 @@ const ProSidebar = () => {
         </Box>
         {(location.pathname == "/" ||
           location.pathname == "/projects" ||
-          location.pathname == "/help") && (
+          location.pathname == "/help" ||
+          location.pathname == "/withdrawrewards") && (
           <Box>
             <Link to={"/"}>
               <Item
@@ -156,9 +155,9 @@ const ProSidebar = () => {
             <Link to="/rewards">
               <Item
                 title="Rewards"
-                icon={<img width={"22px"} src={`../../assets/Prize.png`} />}
-                // selected={selected}
-                // setSelected={setSelected}
+                icon={<MilitaryTechOutlined/> }
+                selected={selected}
+                setSelected={setSelected}
               />
             </Link>
           </Box>

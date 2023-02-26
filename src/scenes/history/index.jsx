@@ -1,11 +1,9 @@
 import React from "react";
-import { useTheme, Box, IconButton, Button } from "@mui/material";
+import { useTheme, Box, IconButton, Button, TextField } from "@mui/material";
 import { tokens } from "../../themes";
 import Header from "../../components/Header/Header";
 import CustomText from "../../components/CustomText/CustomText";
-import Icons from "../../components/Icons/Icon";
 import BarChart from "../../components/BarChart/BarChart";
-import { ArrowLeftRounded, ArrowRightRounded } from "@mui/icons-material";
 
 const HistoryPage = () => {
   const theme = useTheme();
@@ -104,6 +102,7 @@ const HistoryPage = () => {
       </Box>
       <Box
         display={"flex"}
+        mb='10%'
         sx={{
           marginTop: "20px",
           height: "500px",
@@ -116,46 +115,16 @@ const HistoryPage = () => {
       >
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <CustomText text={"Rewards Chart"} size={20} />
-          <Box display={"flex"} flexDirection={"row"}>
-            <IconButton
+            <Box display={"flex"} flexDirection={"row"}>
+            <TextField
+              id="date"
+              type="date"
+              defaultValue={new Date().toISOString().substring(0, 10)}
               sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                backgroundColor: "#56327D",
-                width: "25px",
-                height: "25PX",
-                borderRadius: "100%",
+                backgroundColor:
+                  theme.palette.mode === "dark" ? "#4A3067" : "white",
               }}
-            >
-              <ArrowLeftRounded />
-            </IconButton>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                backgroundColor: "#56327D",
-                paddingInline: "5px",
-                marginInline: "5px",
-                borderRadius: "12px",
-              }}
-            >
-              <text>26-1-2023 12:53 PM</text>
-            </Box>
-            <IconButton
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                backgroundColor: "#56327D",
-                width: "25px",
-                height: "25PX",
-                borderRadius: "100%",
-              }}
-            >
-              <ArrowRightRounded />
-            </IconButton>
+            />
           </Box>
         </Box>
         <BarChart />

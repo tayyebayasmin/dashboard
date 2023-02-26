@@ -1,28 +1,27 @@
 import React from "react";
-import {
-  useTheme,
-  Box,
-  IconButton,
-  Button,
-} from "@mui/material";
+import { useTheme, Box, IconButton, Button, Slider } from "@mui/material";
 import { tokens } from "../../themes";
 import Header from "../../components/Header/Header";
 import CustomText from "../../components/CustomText/CustomText";
-import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useState } from "react";
 import { CheckOutlined } from "@mui/icons-material";
+import { Link } from "react-router-dom";
+import DeleteAccountModal from "../../components/DeleteAccountModal";
 const RewardsPage = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const username='danish.009'
+  const email='danish.009@hotmail.com'
   const [language, setLanguage] = useState(1);
   const [timeZone, setTimeZone] = useState(0);
   const [currency, setCurrency] = useState(1);
   const [check1, setCheck1] = useState(true);
   const [check2, setCheck2] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
+  const CloseDeleteModal = () => setDeleteModal(false);
 
   const handleChange = (event) => {
     setLanguage(event.target.value);
@@ -65,7 +64,7 @@ const RewardsPage = () => {
             marginBottom: "10px",
           }}
         >
-          <CustomText text={"Danish"} />
+          <CustomText text={username} />
         </Box>
         <CustomText text={"Email"} />
         <Box
@@ -77,7 +76,7 @@ const RewardsPage = () => {
             marginBottom: "15px",
           }}
         >
-          <CustomText text={"danish.009@hotmail.com"} />
+          <CustomText text={email} />
         </Box>
         <FormControl sx={{ m: 1, minWidth: 120 }}>
           <CustomText mb="15px" text={"Localization"} size={23} />
@@ -181,7 +180,6 @@ const RewardsPage = () => {
               Polish
             </MenuItem>
           </Select>
-
           <CustomText text={"Preferred Timezone"} size={18} mt="10px" />
           <Select
             value={timeZone}
@@ -400,20 +398,40 @@ const RewardsPage = () => {
             <CustomText text={"Newsletter"} />
           </Box>
           <CustomText text={"Recieve our newsletter."} />
+          <Link
+            to={"/withdrawrewards"}
+            style={{
+              textDecoration: "none",
+            }}
+          >
+            <Button
+              sx={{
+                width: "140px",
+                ml: "10px",
+                marginTop: "20px",
+                background: "#F85844",
+                borderRadius: "20px",
+              }}
+              variant="contained"
+            >
+              Save Changes
+            </Button>
+          </Link>
           <Button
             sx={{
-              width: "140px",
-              ml: "10px",
-              marginTop: "20px",
-              background: "#F85844",
-              borderRadius: "20px",
+              display: "flex",
+              justifyContent: "flex-start",
             }}
-            variant="contained"
+            onClick={() => setDeleteModal(true)}
           >
-            Save Changes
+            <CustomText
+              text={"Request Account Deletion"}
+              size={18}
+              mt={"20px"}
+            />
           </Button>
-          <CustomText text={"Request Account Deletion"} size={18} mt={"20px"} />
         </FormControl>
+        {deleteModal && <DeleteAccountModal open={deleteModal} handleClose={CloseDeleteModal} username={username} email={email}/>}
       </Box>
     </Box>
   );

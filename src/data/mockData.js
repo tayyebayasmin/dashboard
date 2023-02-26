@@ -14,6 +14,18 @@ export const mockDataProject = [
     enable: "false",
   },
 ];
+export const mockDataWithdraw = [
+  {
+    id: 1,
+    name: "KDA 1",
+    amount: 90,
+  },
+  {
+    id: 2,
+    name: "KDA 2",
+    amount: 80,
+  },
+];
 export const mockDataFunds = [
   {
     id: 1,
@@ -32,8 +44,73 @@ export const mockDataProfiles = [
     username: "danish.009",
     webAccess: true,
     apiAccess: false,
-    accessPermissions:'Master Account',
-    state:'Active'
+    accessPermissions: "Master Account",
+    state: "Active",
+  },
+];
+export const mockDataPermission = [
+  {
+    name: "Manage Access Profile",
+    MasterAccount: true,
+    Full: false,
+    ReadOnly: false,
+    LimitedReadOnly: false,
+  },
+  {
+    name: "Modify Settings",
+    MasterAccount: true,
+    Full: true,
+    ReadOnly: false,
+    LimitedReadOnly: false,
+  },
+  {
+    name: "Manage Workers",
+    MasterAccount: true,
+    Full: true,
+    ReadOnly: false,
+    LimitedReadOnly: false,
+  },
+  {
+    name: "See Settings",
+    MasterAccount: true,
+    Full: true,
+    ReadOnly: true,
+    LimitedReadOnly: false,
+  },
+  {
+    name: "See Pyouts and Wallets",
+    MasterAccount: true,
+    Full: true,
+    ReadOnly: true,
+    LimitedReadOnly: false,
+  },
+  {
+    name: "See Active Log",
+    MasterAccount: true,
+    Full: true,
+    ReadOnly: true,
+    LimitedReadOnly: false,
+  },
+  {
+    name: "See Sensitive Data",
+    MasterAccount: true,
+    Full: true,
+    ReadOnly: true,
+    LimitedReadOnly: false,
+  },
+  {
+    name: "See Reward History",
+    MasterAccount: true,
+    Full: true,
+    ReadOnly: true,
+    LimitedReadOnly: true,
+  },
+  {
+    name: "See Performance Data",
+    MasterAccount: true,
+    Full: true,
+    ReadOnly: true,
+    LimitedReadOnly: true,
   },
 ];
 export const mockDataWallets = [

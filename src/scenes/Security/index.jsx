@@ -5,11 +5,20 @@ import Header from "../../components/Header/Header";
 import CustomText from "../../components/CustomText/CustomText";
 import { useState } from "react";
 import { Lock } from "@mui/icons-material";
+import LogoutModal from "../../components/LogoutModal";
+import OTPModal from "../../components/OTP";
 const SecurityPage = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [pwd, setPwd] = useState("xxxxxx");
-
+  const [logout, Setisslogout] = useState(false);
+  const handleCloseLogout = () => {
+    Setisslogout(false);
+  };
+  const [OTP, SetIssOTP] = useState(false);
+  const handleCloseOTP = () => {
+    SetIssOTP(false)
+  };
   const onChangepsw = (event) => {
     setPwd(event.target.value);
   };
@@ -113,17 +122,19 @@ const SecurityPage = () => {
             </Box>
           </Box>
           <Button
-          sx={{
-            width: "140px",
-            ml: "10px",
-            marginTop: "20px",
-            background: "#F85844",
-            borderRadius: "20px",
-          }}
-          variant="contained"
-        >
-          Enable OTP
-        </Button>
+            sx={{
+              width: "140px",
+              ml: "10px",
+              marginTop: "20px",
+              background: "#F85844",
+              borderRadius: "20px",
+            }}
+            variant="contained"
+            onClick={()=>SetIssOTP(true)}
+
+          >
+            Enable OTP
+          </Button>
         </Box>
         <Box
           sx={{
@@ -134,10 +145,14 @@ const SecurityPage = () => {
             borderRadius: "8px",
             width: "900px",
             padding: "30px",
-            marginTop:'10px'
+            marginTop: "10px",
           }}
         >
-          <CustomText text={"Universal Second Factor (FIDO)"} size={18} mb={8} />
+          <CustomText
+            text={"Universal Second Factor (FIDO)"}
+            size={18}
+            mb={8}
+          />
           <Box
             sx={{
               display: "flex",
@@ -161,20 +176,25 @@ const SecurityPage = () => {
             </Box>
           </Box>
           <Button
-          sx={{
-            width: "140px",
-            ml: "10px",
-            marginTop: "20px",
-            background: "#F85844",
-            borderRadius: "20px",
-          }}
-          variant="contained"
-        >
-          Enable OTP
-        </Button>
+            sx={{
+              width: "140px",
+              ml: "10px",
+              marginTop: "20px",
+              background: "#F85844",
+              borderRadius: "20px",
+            }}
+            variant="contained"
+            onClick={()=>SetIssOTP(true)}
+          >
+            Enable OTP
+          </Button>
         </Box>
-        <CustomText size={'19px'}  text={'Active User Sessions'} mt={'20px'}/>
-        <CustomText size={'15px'} text={`Logout all your active sessions - including the one you are using right now.`}/>
+        {OTP && <OTPModal open={OTP} handleClose={handleCloseOTP}/>}
+        <CustomText size={"19px"} text={"Active User Sessions"} mt={"20px"} />
+        <CustomText
+          size={"15px"}
+          text={`Logout all your active sessions - including the one you are using right now.`}
+        />
         <Button
           sx={{
             width: "160px",
@@ -182,13 +202,15 @@ const SecurityPage = () => {
             marginTop: "20px",
             background: "#F85844",
             borderRadius: "20px",
-            marginBottom:'20px'
+            marginBottom: "20px",
           }}
           variant="contained"
+          onClick={() => Setisslogout(true)}
         >
           Logout all sessions!
         </Button>
       </Box>
+      {logout && <LogoutModal open={logout} handleClose={handleCloseLogout} />}
     </Box>
   );
 };

@@ -18,7 +18,7 @@ import ActivityHistoryPage from "./scenes/activityHistory";
 import SecurityPage from "./scenes/Security";
 import DevicesPage from "./scenes/devices";
 import AccessProfilesPage from "./scenes/accessProfiles";
-
+import WithdrawRewardsPage from "./scenes/withdrawRewards";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -47,6 +47,7 @@ function App() {
               <Route exact path="/security" element={<SecurityPage />} />
               <Route exact path="/devices" element={<DevicesPage />} />
               <Route exact path="/accessProfiles" element={<AccessProfilesPage />} />
+              <Route exact path="/withdrawrewards" element={<WithdrawRewardsPage />} />
 
             </Routes>
           </main>

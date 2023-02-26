@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useTheme, Box, IconButton, Button } from "@mui/material";
+import { useTheme, Box, IconButton, Button, TextField } from "@mui/material";
 import { tokens } from "../../themes";
 import Header from "../../components/Header/Header";
 import CustomText from "../../components/CustomText/CustomText";
@@ -10,12 +10,16 @@ import { RealTimeChart } from "../../components/LiveChart";
 import LineChart from "../../components/LineChart";
 import AlertDialog from "../../components/ViewMoreDialog";
 import { mockDataProject, mockLineData } from "../../data/mockData";
+import WithDrawModal from "../../components/WithDrawModal";
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [count, setCount] = useState(0);
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
+  const [openWithdraw, setOpenWirhdraw] = useState(false);
+  const handleCloseWithdraw = () => setOpenWirhdraw(false);
+  var date = new Date();
   return (
     <Box m="20px" sx={{ marginInline: "50px" }}>
       <Box display="flex" justifyContent="space-between" alignItems="center">
@@ -151,45 +155,15 @@ const Dashboard = () => {
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <CustomText text={"Rewards Chart"} size={20} />
           <Box display={"flex"} flexDirection={"row"}>
-            <IconButton
+            <TextField
+              id="date"
+              type="date"
+              defaultValue={new Date().toISOString().substring(0, 10)}
               sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                backgroundColor: "#56327D",
-                width: "25px",
-                height: "25PX",
-                borderRadius: "100%",
+                backgroundColor:
+                  theme.palette.mode === "dark" ? "#4A3067" : "white",
               }}
-            >
-              <ArrowLeftRounded />
-            </IconButton>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                backgroundColor: "#56327D",
-                paddingInline: "5px",
-                marginInline: "5px",
-                borderRadius: "12px",
-              }}
-            >
-              <text>26-1-2023 12:53 PM</text>
-            </Box>
-            <IconButton
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                backgroundColor: "#56327D",
-                width: "25px",
-                height: "25PX",
-                borderRadius: "100%",
-              }}
-            >
-              <ArrowRightRounded />
-            </IconButton>
+            />
           </Box>
         </Box>
         <BarChart />
@@ -310,10 +284,17 @@ const Dashboard = () => {
             borderRadius: "20px",
           }}
           variant="contained"
+          onClick={() => setOpenWirhdraw(true)}
         >
           Withdraw
         </Button>
         {setOpen && <AlertDialog open={open} handleClose={handleClose} />}
+        {setOpenWirhdraw && (
+          <WithDrawModal
+            open={openWithdraw}
+            handleClose={handleCloseWithdraw}
+          />
+        )}
       </Box>
     </Box>
   );

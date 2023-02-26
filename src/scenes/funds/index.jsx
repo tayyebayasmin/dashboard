@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTheme, Box, Switch, Button } from "@mui/material";
 import { tokens } from "../../themes";
 import Table from "@mui/material/Table";
@@ -11,16 +11,27 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { mockDataFunds, mockDataProject } from "../../data/mockData";
 import Header from "../../components/Header/Header";
-import { DataGrid } from "@mui/x-data-grid";
-import CustomText from "../../components/CustomText/CustomText";
+import PauseAllPauouts from "../../components/PausePayoutModal";
+import AddNewAccount from "../../components/AddNewAccount";
 const FundsPage = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [isPause,setIsPause]= useState(false)
+  const handleClose=()=>{
+    setIsPause(false)
+  }
+  const [account,setAccount]= useState(false)
+  const handleCloseAccount=()=>{
+    setAccount(false)
+  }
   return (
     <Box ml="80px" mr="80px" mt="30px">
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header Title="Financial Account" />
         <Box>
+          {isPause && <PauseAllPauouts open={isPause} handleClose={handleClose} />}
+          {account && <AddNewAccount open={account} handleClose={handleCloseAccount} />}
+
         <Button
           sx={{
             paddingInline: "20px",
@@ -28,6 +39,7 @@ const FundsPage = () => {
             borderRadius: "20px",
           }}
           variant="contained"
+          onClick={()=>{setIsPause(true)}}
         >
           Pause All Payouts 
         </Button>
@@ -39,6 +51,8 @@ const FundsPage = () => {
             borderRadius: "20px",
           }}
           variant="contained"
+          onClick={()=>{setAccount(true)}}
+
         >
           Add new Account 
         </Button>
