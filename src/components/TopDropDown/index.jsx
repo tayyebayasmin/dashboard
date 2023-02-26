@@ -10,7 +10,7 @@ import {
   Security,
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
-export default function TopDropDown({ isExapnd,setexpand }) {
+export default function TopDropDown({ setexpand }) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
@@ -22,7 +22,7 @@ export default function TopDropDown({ isExapnd,setexpand }) {
         padding: "10px",
         right: "1%",
         zIndex:'10',
-        top: "70px",
+        top: "5%",
         width: "220px",
         borderRadius: "10px",
       }}

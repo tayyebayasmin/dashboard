@@ -1,6 +1,8 @@
 import React from "react";
-import { useTheme } from "@mui/material";
+import { Typography, useTheme } from "@mui/material";
 import { tokens } from "../../themes";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const CustomText = ({
   justify,
@@ -14,9 +16,27 @@ const CustomText = ({
 }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [windowDimenion, detectHW] = useState({
+    winWidth: window.innerWidth,
+    winHeight: window.innerHeight,
+  });
+
+  const detectSize = () => {
+    detectHW({
+      winWidth: window.innerWidth,
+      winHeight: window.innerHeight,
+    });
+  };
+  useEffect(() => {
+    window.addEventListener("resize", detectSize);
+
+    return () => {
+      window.removeEventListener("resize", detectSize);
+    };
+  }, [windowDimenion]);
   return (
-    <text
-      style={{
+    <Typography
+      sx={{
         fontWeight: weight,
         fontSize: size,
         fontFamily: "Lato",
@@ -29,7 +49,7 @@ const CustomText = ({
       }}
     >
       {text}
-    </text>
+    </Typography>
   );
 };
 export default CustomText;

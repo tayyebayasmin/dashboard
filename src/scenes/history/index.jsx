@@ -5,7 +5,7 @@ import Header from "../../components/Header/Header";
 import CustomText from "../../components/CustomText/CustomText";
 import BarChart from "../../components/BarChart/BarChart";
 
-const HistoryPage = () => {
+const HistoryPage = ({ windowDimenion }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
@@ -17,13 +17,15 @@ const HistoryPage = () => {
         display={"flex"}
         justifyContent={"space-between"}
         flexDirection={"row"}
+        flexWrap={windowDimenion.winWidth<450?'wrap':undefined}
       >
         <Box
           display={"flex"}
           sx={{
-            minWidth: "400px",
+            minWidth: "32%",
             borderRadius: "12px",
             padding: "12px",
+            width: windowDimenion.winWidth < 450 ? "100%" : undefined,
             backgroundColor:
               theme.palette.mode === "dark" ? "#28094A" : "#FFFFFF",
           }}
@@ -36,7 +38,9 @@ const HistoryPage = () => {
         <Box
           display={"flex"}
           sx={{
-            minWidth: "400px",
+            minWidth: "32%",
+            width: windowDimenion.winWidth < 450 ? "100%" : undefined,
+            mt: "5px",
             borderRadius: "12px",
             padding: "12px",
             backgroundColor:
@@ -52,9 +56,11 @@ const HistoryPage = () => {
           display={"flex"}
           justifyContent={"space-between"}
           sx={{
-            minWidth: "400px",
+            minWidth: "32%",
             borderRadius: "12px",
             padding: "12px",
+            width: windowDimenion.winWidth < 450 ? "100%" : undefined,
+            mt: "5px",
             paddingTop: "20px",
             paddingBottom: "20px",
             backgroundColor:
@@ -102,7 +108,7 @@ const HistoryPage = () => {
       </Box>
       <Box
         display={"flex"}
-        mb='10%'
+        mb="10%"
         sx={{
           marginTop: "20px",
           height: "500px",
@@ -115,7 +121,7 @@ const HistoryPage = () => {
       >
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <CustomText text={"Rewards Chart"} size={20} />
-            <Box display={"flex"} flexDirection={"row"}>
+          <Box display={"flex"} flexDirection={"row"}>
             <TextField
               id="date"
               type="date"

@@ -11,7 +11,6 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { mockDataProject } from "../../data/mockData";
 import Header from "../../components/Header/Header";
-import { DataGrid } from "@mui/x-data-grid";
 import close from "./close.png";
 import vector from "./Vector.png";
 
@@ -24,7 +23,7 @@ const ProjectsPage = () => {
     sum+=obj.amount
   });
   return (
-    <Box ml="80px" mr="80px" mt="30px">
+    <Box ml="3%" mr="3%" mt="30px">
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header Title="Projects" />
       </Box>
@@ -109,7 +108,7 @@ const ProjectsPage = () => {
           borderRadius: "5px",
           marginTop: "4px",
           paddingBottom: "5px",
-          minWidth: 600,
+          // minWidth: 600,
           backgroundColor:
             theme.palette.mode === "light" ? "#E0E0E0" : "#1B0336",
         }}

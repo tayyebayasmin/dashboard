@@ -69,7 +69,7 @@ const ItemFunds = ({
     </MenuItem>
   );
 };
-const ProSidebar = () => {
+const ProSidebar = ({compressed}) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const location = useLocation();
@@ -78,16 +78,18 @@ const ProSidebar = () => {
   const [isCollapse, setCollapse] = useState(false);
   const [selectedHistory, setSelectedHistory] = useState("Rewards History");
   const [selectedReward, setSelecteReward] = useState("Account");
-
   return (
     <Sidebar
       backgroundColor="#28094A"
       style={{
+        zIndex:!compressed?10:undefined,
+        position:!compressed?'absolute':undefined,
         top:0,
         bottom:0,
         minHeight:'100vh',
       }}
     >
+      
       <Menu
         iconShape="square"
         menuItemStyles={{

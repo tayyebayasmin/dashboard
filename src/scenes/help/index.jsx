@@ -9,14 +9,13 @@ import { tokens } from "../../themes";
 import { useRef } from "react";
 import { AttachFile } from "@mui/icons-material";
 
-const HelpPage = () => {
+const HelpPage = ({windowDimenion}) => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const handleFormSubmit = (values) => {
     // console.log(values);
   };
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const uploadInputRef = useRef(null);
 
   return (
     <Box m="20px" ml={5}>
@@ -25,7 +24,7 @@ const HelpPage = () => {
       <Box
         p="30px"
         m={2}
-        width={500}
+        width={windowDimenion.winWidth<450?undefined:500}
         sx={{
           backgroundColor: theme.palette.mode === "dark" ? "#1B0336" : "white",
           borderRadius: "12px",

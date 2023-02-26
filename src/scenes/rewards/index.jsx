@@ -10,7 +10,7 @@ import { useState } from "react";
 import { CheckOutlined } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import DeleteAccountModal from "../../components/DeleteAccountModal";
-const RewardsPage = () => {
+const RewardsPage = ({windowDimenion}) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const username='danish.009'
@@ -48,9 +48,9 @@ const RewardsPage = () => {
       <Box
         sx={{
           display: "flex",
-          marginLeft: "15px",
+          marginLeft: windowDimenion.winWidth?undefined:"15px",
           flexDirection: "column",
-          width: "400px",
+          width: windowDimenion.winWidth < 450 ? undefined : 400,
         }}
       >
         <CustomText text={"Personal Information"} size={20} mb={8} />
@@ -78,7 +78,7 @@ const RewardsPage = () => {
         >
           <CustomText text={email} />
         </Box>
-        <FormControl sx={{ m: 1, minWidth: 120 }}>
+        <FormControl sx={{ m: 1, minWidth:windowDimenion.winWidth<450?undefined: 120 }}>
           <CustomText mb="15px" text={"Localization"} size={23} />
           <CustomText text={"Preferred Language"} size={18} />
           <CustomText

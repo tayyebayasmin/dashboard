@@ -9,6 +9,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import CommonButton from "../../components/ButtonCommon";
 import { mockDataFunds, mockDataProject } from "../../data/mockData";
 import Header from "../../components/Header/Header";
 import PauseAllPauouts from "../../components/PausePayoutModal";
@@ -16,47 +17,40 @@ import AddNewAccount from "../../components/AddNewAccount";
 const FundsPage = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [isPause,setIsPause]= useState(false)
-  const handleClose=()=>{
-    setIsPause(false)
-  }
-  const [account,setAccount]= useState(false)
-  const handleCloseAccount=()=>{
-    setAccount(false)
-  }
+  const [isPause, setIsPause] = useState(false);
+  const handleClose = () => {
+    setIsPause(false);
+  };
+  const [account, setAccount] = useState(false);
+  const handleCloseAccount = () => {
+    setAccount(false);
+  };
   return (
-    <Box ml="80px" mr="80px" mt="30px">
+    <Box ml="3%" mr="3%" mt="30px">
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header Title="Financial Account" />
         <Box>
-          {isPause && <PauseAllPauouts open={isPause} handleClose={handleClose} />}
-          {account && <AddNewAccount open={account} handleClose={handleCloseAccount} />}
-
-        <Button
-          sx={{
-            paddingInline: "20px",
-            background: "#F85844",
-            borderRadius: "20px",
-          }}
-          variant="contained"
-          onClick={()=>{setIsPause(true)}}
-        >
-          Pause All Payouts 
-        </Button>
-        <Button
-          sx={{
-            ml:'10px',
-            paddingInline: "20px",
-            background: "#C78FB7",
-            borderRadius: "20px",
-          }}
-          variant="contained"
-          onClick={()=>{setAccount(true)}}
-
-        >
-          Add new Account 
-        </Button>
-      </Box>
+          {isPause && (
+            <PauseAllPauouts open={isPause} handleClose={handleClose} />
+          )}
+          {account && (
+            <AddNewAccount open={account} handleClose={handleCloseAccount} />
+          )}
+          <CommonButton
+            background={"#F85844"}
+            text={"Pause All Payouts "}
+            onClickButton={() => {
+              setIsPause(true);
+            }}
+          />
+          <CommonButton
+            background={"#C78FB7"}
+            text={"Add new Account"}
+            onClickButton={() => {
+              setAccount(true);
+            }}
+          />
+        </Box>
       </Box>
       <TableContainer
         component={Paper}

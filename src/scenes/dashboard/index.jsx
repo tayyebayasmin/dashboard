@@ -11,7 +11,7 @@ import LineChart from "../../components/LineChart";
 import AlertDialog from "../../components/ViewMoreDialog";
 import { mockDataProject, mockLineData } from "../../data/mockData";
 import WithDrawModal from "../../components/WithDrawModal";
-const Dashboard = () => {
+const Dashboard = ({windowDimenion}) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [count, setCount] = useState(0);
@@ -21,7 +21,7 @@ const Dashboard = () => {
   const handleCloseWithdraw = () => setOpenWirhdraw(false);
   var date = new Date();
   return (
-    <Box m="20px" sx={{ marginInline: "50px" }}>
+    <Box m="3%" sx={{ marginInline: "3%" }}>
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header Title="Dashboard" />
       </Box>
@@ -29,13 +29,16 @@ const Dashboard = () => {
         display={"flex"}
         justifyContent={"space-between"}
         flexDirection={"row"}
+        flexWrap={windowDimenion.winWidth<450?'wrap':undefined}
       >
         <Box
           display={"flex"}
           sx={{
-            minWidth: "390px",
+            mt: "5px",
+            minWidth: "32%",
             borderRadius: "12px",
             padding: "12px",
+            width:windowDimenion.winWidth<450?'100%':undefined,
             backgroundColor:
               theme.palette.mode === "dark" ? "#28094A" : "#FFFFFF",
           }}
@@ -49,7 +52,10 @@ const Dashboard = () => {
         <Box
           display={"flex"}
           sx={{
-            minWidth: "390px",
+            ml:'1%',
+            mt: "5px",
+            minWidth: "32%",
+            width:windowDimenion.winWidth<450?'100%':undefined,
             borderRadius: "12px",
             padding: "20px",
             backgroundColor:
@@ -101,10 +107,13 @@ const Dashboard = () => {
           display={"flex"}
           justifyContent={"space-between"}
           sx={{
-            minWidth: "390px",
+            ml:'1%',
+            minWidth: "32%",
             borderRadius: "12px",
             padding: "12px",
             paddingTop: "20px",
+            mt: "5px",
+            width:windowDimenion.winWidth<450?'100%':undefined,
             paddingBottom: "20px",
             backgroundColor:
               theme.palette.mode === "dark" ? "#28094A" : "#FFFFFF",
@@ -115,7 +124,8 @@ const Dashboard = () => {
             display="flex"
             flexDirection={"row"}
             justifyContent={"space-between"}
-            sx={{ paddingInline: "12px" }}
+            sx={{ paddingInline: "12px",
+         }}
           >
             <CustomText text={"Available Projects "} size={18} />
             <CustomText text={"12"} size={18} />
@@ -172,6 +182,7 @@ const Dashboard = () => {
         display={"flex"}
         flexDirection={"row"}
         justifyContent={"space-between"}
+        flexWrap='wrap'
       >
         <Box
           display={"flex"}

@@ -7,7 +7,7 @@ import { useState } from "react";
 import { Lock } from "@mui/icons-material";
 import LogoutModal from "../../components/LogoutModal";
 import OTPModal from "../../components/OTP";
-const SecurityPage = () => {
+const SecurityPage = ({ windowDimenion }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [pwd, setPwd] = useState("xxxxxx");
@@ -17,7 +17,7 @@ const SecurityPage = () => {
   };
   const [OTP, SetIssOTP] = useState(false);
   const handleCloseOTP = () => {
-    SetIssOTP(false)
+    SetIssOTP(false);
   };
   const onChangepsw = (event) => {
     setPwd(event.target.value);
@@ -32,10 +32,14 @@ const SecurityPage = () => {
           display: "flex",
           marginLeft: "15px",
           flexDirection: "column",
-          width: "400px",
+          width: windowDimenion.winWidth < 450 ? undefined : 400,
         }}
       >
-        <CustomText text={"Change Password"} size={20} mb={8} />
+        <CustomText
+          text={"Change Password"}
+          size={20}
+          mb={windowDimenion.winWidth < 450 ? 2 : 8}
+        />
         <CustomText text={"New Password"} size={18} />
         <TextField
           id="outlined-basic"
@@ -79,13 +83,13 @@ const SecurityPage = () => {
           marginTop: "15px",
         }}
       >
-        <CustomText text={"Two Factor Authorization"} size={20} mb={8} />
+        <CustomText text={"Two Factor Authorization"} size={20} mb={2} />
         <CustomText
           text={
             "We highly recommend using 2FA. You can choose from two options below."
           }
           size={15}
-          mb={8}
+          mb={2}
         />
         <Box
           sx={{
@@ -94,15 +98,15 @@ const SecurityPage = () => {
             display: "flex",
             flexDirection: "column",
             borderRadius: "8px",
-            width: "900px",
+            width: windowDimenion.winWidth < 450 ? "100%" : "75%",
             padding: "30px",
           }}
         >
-          <CustomText text={"One Time Password (OTP)"} size={18} mb={8} />
+          <CustomText text={"One Time Password (OTP)"} size={18} mb={2} />
           <Box
             sx={{
               display: "flex",
-              flexDirection: "row",
+              flexDirection: windowDimenion.winWidth<450?'column':"row",
               justifyContent: "space-between",
             }}
           >
@@ -113,7 +117,7 @@ const SecurityPage = () => {
             <Box
               sx={{
                 display: "flex",
-                marginLeft: "100px",
+                marginLeft:windowDimenion.winWidth<450? undefined: "100px",
                 alignItems: "center",
               }}
             >
@@ -130,8 +134,7 @@ const SecurityPage = () => {
               borderRadius: "20px",
             }}
             variant="contained"
-            onClick={()=>SetIssOTP(true)}
-
+            onClick={() => SetIssOTP(true)}
           >
             Enable OTP
           </Button>
@@ -143,7 +146,7 @@ const SecurityPage = () => {
             display: "flex",
             flexDirection: "column",
             borderRadius: "8px",
-            width: "900px",
+            width: windowDimenion.winWidth < 450 ? "100%" : "75%",
             padding: "30px",
             marginTop: "10px",
           }}
@@ -151,12 +154,12 @@ const SecurityPage = () => {
           <CustomText
             text={"Universal Second Factor (FIDO)"}
             size={18}
-            mb={8}
+            mb={2}
           />
           <Box
             sx={{
               display: "flex",
-              flexDirection: "row",
+              flexDirection: windowDimenion.winWidth<450?'column':"row",
               justifyContent: "space-between",
             }}
           >
@@ -167,7 +170,7 @@ const SecurityPage = () => {
             <Box
               sx={{
                 display: "flex",
-                marginLeft: "100px",
+                width: windowDimenion.winWidth < 450 ? "100%" : "75%",
                 alignItems: "center",
               }}
             >
@@ -184,12 +187,12 @@ const SecurityPage = () => {
               borderRadius: "20px",
             }}
             variant="contained"
-            onClick={()=>SetIssOTP(true)}
+            onClick={() => SetIssOTP(true)}
           >
             Enable OTP
           </Button>
         </Box>
-        {OTP && <OTPModal open={OTP} handleClose={handleCloseOTP}/>}
+        {OTP && <OTPModal open={OTP} handleClose={handleCloseOTP} />}
         <CustomText size={"19px"} text={"Active User Sessions"} mt={"20px"} />
         <CustomText
           size={"15px"}

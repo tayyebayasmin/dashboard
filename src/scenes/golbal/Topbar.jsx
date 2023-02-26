@@ -12,7 +12,7 @@ import { NotificationsOutlined, WalletTwoTone } from "@mui/icons-material";
 import CustomizeButton from "../../components/Button/Button";
 import CustomText from "../../components/CustomText/CustomText";
 import TopDropDown from "../../components/TopDropDown";
-const Topbar = () => {
+const Topbar = ({ windowDimenion }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
@@ -26,15 +26,15 @@ const Topbar = () => {
   };
   const location = useLocation();
   return (
-    <Box display="flex" justifyContent="space-between" p={2}>
+    <Box display="flex" width='100%' flexWrap={"wrap"} justifyContent="space-between" p={2}>
       {location.pathname === "/" ||
       location.pathname == "/funds" ||
       location.pathname == "/funds/overview" ||
       location.pathname == "/funds/kdaaccount" ||
-      location.pathname == "/wallets"||
+      location.pathname == "/wallets" ||
       location.pathname == "/history" ||
       location.pathname == "/payoutshistory" ||
-      location.pathname == "/activityhistory"? (
+      location.pathname == "/activityhistory" ? (
         <Box
           display="flex"
           justifyContent="space-between"
@@ -78,17 +78,19 @@ const Topbar = () => {
       )}
       <Box display="flex" alignItems="center">
         <CustomText text="Feedback" />
-        <CustomText text="Help" ml="30px" />
+        <CustomText text="Help" ml="10px" />
         <IconButton
           sx={{
-            marginLeft: "30px",
+            marginLeft: "10px",
             color: theme.palette.mode === "dark" ? "white" : "#361956",
           }}
         >
           <WalletTwoTone />
           <CustomText ml="4px" text=" 0 USD" />
         </IconButton>
-        <MaterialUISwitch sx={{ m: 1 }} onClick={colorMode.toggleColorMode} />
+        {windowDimenion.winWidth > 500 && (
+          <MaterialUISwitch sx={{ m: 1 }} onClick={colorMode.toggleColorMode} />
+        )}
         <IconButton
           sx={{ color: theme.palette.mode === "dark" ? "white" : "#361956" }}
         >
@@ -103,7 +105,9 @@ const Topbar = () => {
           {isExapnd ? <ExpandLess /> : <ExpandMore />}
         </IconButton>
       </Box>
-      {isExapnd && <TopDropDown isExapnd={isExapnd} setIsExpand={setIsExpand}/>}
+      {isExapnd && (
+        <TopDropDown isExapnd={isExapnd} setIsExpand={setIsExpand} />
+      )}
     </Box>
   );
 };

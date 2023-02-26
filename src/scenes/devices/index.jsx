@@ -11,8 +11,8 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Header from "../../components/Header/Header";
 import CustomText from "../../components/CustomText/CustomText";
-import { AdUnits, MobileOffOutlined } from "@mui/icons-material";
-const DevicesPage = () => {
+import { AdUnits } from "@mui/icons-material";
+const DevicesPage = ({ windowDimenion }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [device, setdevice] = useState("Place your device label");
@@ -55,11 +55,11 @@ const DevicesPage = () => {
         style={{
           marginTop: "3%",
           marginLeft: "3%",
-          width: "70%",
+          width: "90%",
           backgroundColor: theme.palette.mode === "dark" ? "#28094A" : "white",
         }}
       >
-        <Table sx={{ minWidth: 600 }} aria-label="simple table">
+        <Table aria-label="simple table">
           <TableHead
             style={{
               backgroundColor:
@@ -175,10 +175,10 @@ const DevicesPage = () => {
           display: "flex",
           marginLeft: "15px",
           flexDirection: "column",
-          width: "400px",
+          width: windowDimenion.winWidth < 450 ? undefined : "400px",
         }}
       >
-        <CustomText mt={'15px'} text={"Add new device"} size={20} mb={8} />
+        <CustomText mt={"15px"} text={"Add new device"} size={20} mb={2} />
         <CustomText text={"New device"} size={15} />
         <TextField
           id="outlined-basic"

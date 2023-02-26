@@ -22,7 +22,7 @@ const WalletsPage = () => {
     SetCreateWalletModal(false);
   };
   return (
-    <Box ml="80px" mr="80px" mt="30px">
+    <Box ml="3%" mr="3%" mt="30px">
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header Title="Wallets" />
         <Button

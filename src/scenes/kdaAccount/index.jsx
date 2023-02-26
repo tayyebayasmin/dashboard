@@ -12,11 +12,11 @@ import Paper from "@mui/material/Paper";
 import {  mockDataKda } from "../../data/mockData";
 import Header from "../../components/Header/Header";
 import CustomText from "../../components/CustomText/CustomText";
-const KDAAccountPage = () => {
+const KDAAccountPage = ({windowDimenion}) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
-    <Box ml="80px" mr="80px" mt="30px">
+    <Box ml="3%" mr="3%" mt="30px">
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header Title="KDA Account" />
       </Box>
@@ -24,13 +24,16 @@ const KDAAccountPage = () => {
         display={"flex"}
         justifyContent={"space-between"}
         flexDirection={"row"}
+        flexWrap={windowDimenion.winWidth<450?'wrap':undefined}
       >
         <Box
           display={"flex"}
           sx={{
-            minWidth: "350px",
+            minWidth: "32%",
             borderRadius: "12px",
+            mt: "5px",
             padding: "12px",
+            width:windowDimenion.winWidth<450?'100%':undefined,
             backgroundColor:
               theme.palette.mode === "dark" ? "#28094A" : "#FFFFFF",
           }}
@@ -43,7 +46,9 @@ const KDAAccountPage = () => {
         <Box
           display={"flex"}
           sx={{
-            minWidth: "350px",
+            mt: "5px",
+            minWidth: "32%",
+            width:windowDimenion.winWidth<450?'100%':undefined,
             borderRadius: "12px",
             padding: "12px",
             backgroundColor:
@@ -58,8 +63,10 @@ const KDAAccountPage = () => {
         <Box
           display={"flex"}
           sx={{
-            minWidth: "350px",
+            mt: "5px",
+            minWidth: "32%",
             borderRadius: "12px",
+            width:windowDimenion.winWidth<450?'100%':undefined,
             padding: "12px",
             backgroundColor:
               theme.palette.mode === "dark" ? "#28094A" : "#FFFFFF",
@@ -77,6 +84,7 @@ const KDAAccountPage = () => {
             borderRadius: "12px",
             padding: "12px",
             marginTop:"12px",
+            mt: "5px",
             backgroundColor:
               theme.palette.mode === "dark" ? "#28094A" : "#FFFFFF",
           }}

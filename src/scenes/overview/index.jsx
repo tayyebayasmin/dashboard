@@ -17,6 +17,7 @@ import CustomText from "../../components/CustomText/CustomText";
 import PauseAllPauouts from "../../components/PausePayoutModal";
 import AddNewAccount from "../../components/AddNewAccount";
 import { useState } from "react";
+import CommonButton from "../../components/ButtonCommon";
 const OverviewPage = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -29,7 +30,7 @@ const OverviewPage = () => {
     setAccount(false);
   };
   return (
-    <Box ml="80px" mr="80px" mt="30px">
+    <Box ml="3%" mr="3%" mt="30px">
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header Title="Overview" />
         <Box>
@@ -39,34 +40,20 @@ const OverviewPage = () => {
           {account && (
             <AddNewAccount open={account} handleClose={handleCloseAccount} />
           )}
-
-          <Button
-            sx={{
-              paddingInline: "20px",
-              background: "#F85844",
-              borderRadius: "20px",
-            }}
-            variant="contained"
-            onClick={() => {
-              setIsPause(true);
-            }}
-          >
-            Pause All Payouts
-          </Button>
-          <Button
-            sx={{
-              ml: "10px",
-              paddingInline: "20px",
-              background: "#C78FB7",
-              borderRadius: "20px",
-            }}
-            variant="contained"
-            onClick={() => {
-              setAccount(true);
-            }}
-          >
-            Add new Account
-          </Button>
+          <CommonButton
+          background={"#F85844"}
+          text={"Pause All Payouts "}
+          onClickButton={() => {
+            setIsPause(true);
+          }}
+        />
+        <CommonButton
+          background={"#C78FB7"}
+          text={"Add new Account"}
+          onClickButton={() => {
+            setAccount(true);
+          }}
+        />
         </Box>
       </Box>
       <TableContainer

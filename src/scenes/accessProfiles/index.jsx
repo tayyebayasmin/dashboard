@@ -16,7 +16,7 @@ import EditProfileModal from "../../components/EditProfilesModal";
 import { Link } from "react-router-dom";
 import CreateNewProfile from "../../components/CreateNewProfile";
 import PermissionModal from "../../components/PermissionModal";
-const AccessProfilesPage = () => {
+const AccessProfilesPage = ({ windowDimenion }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [EditModal, setEditModal] = useState(false);
@@ -72,13 +72,16 @@ const AccessProfilesPage = () => {
       <TableContainer
         component={Paper}
         style={{
-          width: "90%",
+          width:" 97%",
           marginLeft: "3%",
           marginTop: "2%",
           backgroundColor: theme.palette.mode === "dark" ? "#28094A" : "white",
         }}
       >
-        <Table sx={{ minWidth: 600 }} aria-label="simple table">
+        <Table
+          sx={{ minWidth: windowDimenion.winWidth < 450 ? undefined : 600 }}
+          aria-label="simple table"
+        >
           <TableHead
             style={{
               backgroundColor:
