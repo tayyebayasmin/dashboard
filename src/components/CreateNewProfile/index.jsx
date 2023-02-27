@@ -33,7 +33,24 @@ export default function CreateNewProfile({ open, handleClose }) {
       },
     },
   };
+  const [windowDimenion, detectHW] = useState({
+    winWidth: window.innerWidth,
+    winHeight: window.innerHeight,
+  });
 
+  const detectSize = () => {
+    detectHW({
+      winWidth: window.innerWidth,
+      winHeight: window.innerHeight,
+    });
+  };
+  React.useEffect(() => {
+    window.addEventListener("resize", detectSize);
+
+    return () => {
+      window.removeEventListener("resize", detectSize);
+    };
+  }, [windowDimenion]);
   return (
     <div>
       <Dialog
@@ -61,7 +78,7 @@ export default function CreateNewProfile({ open, handleClose }) {
         >
           <DialogTitle
             id="alert-dialog-title"
-            fontSize={30}
+            fontSize={windowDimenion.winWidth<450?20: 30}
             color={theme.palette.mode === "light" ? "#28094A" : "white"}
           >
             {"Create Access Profile"}
@@ -251,7 +268,7 @@ export default function CreateNewProfile({ open, handleClose }) {
             </Button>
             <Button
               sx={{
-                width: "28%",
+                width:windowDimenion.winWidth<450? "60%": "28%",
                 ml: "10px",
                 marginTop: "20px",
                 background: "#F85844",

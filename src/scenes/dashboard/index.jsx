@@ -189,7 +189,7 @@ const Dashboard = ({windowDimenion}) => {
           sx={{
             marginTop: "20px",
             height: "300px",
-            width: "580px",
+            width: windowDimenion.winWidth<450?'100%':"580px",
             borderRadius: "12px",
             padding: "12px",
             backgroundColor:

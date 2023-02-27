@@ -7,7 +7,7 @@ import * as time from "d3-time";
 import { timeFormat } from "d3-time-format";
 const data = generateDrinkStats(18);
 const commonProperties = {
-  width: 200,
+  width: 380,
   height: 300,
   margin: { top: 20, right: 20, bottom: 60, left: 80 },
   data,

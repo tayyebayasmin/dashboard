@@ -72,7 +72,7 @@ function App() {
               </Button>
             )}
             <Box mt={windowDimenion.winWidth < 800 ? "4%" : undefined}>
-              <Topbar windowDimenion={windowDimenion} />
+              <Topbar windowDimenion={windowDimenion.winWidth} />
             </Box>
             <Routes>
               <Route

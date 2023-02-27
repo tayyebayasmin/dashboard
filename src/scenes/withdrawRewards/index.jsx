@@ -19,7 +19,7 @@ const WithdrawRewardsPage = () => {
   const [withdraw, setWithdraw] = useState(true);
   const handleClose = () => setWithdraw(false);
   return (
-    <Box ml="80px" mr="80px" mt="30px">
+    <Box ml="3%" mr="3%" mt="30px">
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header Title="Rewards" />
       </Box>
@@ -29,7 +29,7 @@ const WithdrawRewardsPage = () => {
           backgroundColor: theme.palette.mode === "dark" ? "#28094A" : "white",
         }}
       >
-        <Table sx={{ minWidth: 600 }} aria-label="simple table">
+        <Table aria-label="simple table">
           <TableHead
             style={{
               backgroundColor:

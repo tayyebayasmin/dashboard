@@ -10,9 +10,28 @@ import {
   Security,
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
-export default function TopDropDown({ setexpand }) {
+import { useState,useEffect } from "react";
+export default function TopDropDown({setexpand }) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [windowDimenion, detectHW] = useState({
+    winWidth: window.innerWidth,
+    winHeight: window.innerHeight,
+  });
+
+  const detectSize = () => {
+    detectHW({
+      winWidth: window.innerWidth,
+      winHeight: window.innerHeight,
+    });
+  };
+  React.useEffect(() => {
+    window.addEventListener("resize", detectSize);
+
+    return () => {
+      window.removeEventListener("resize", detectSize);
+    };
+  }, [windowDimenion]);
   return (
     <Box
       sx={{
@@ -22,7 +41,7 @@ export default function TopDropDown({ setexpand }) {
         padding: "10px",
         right: "1%",
         zIndex:'10',
-        top: "5%",
+        top:windowDimenion.winWidth<450?'120px': "5%",
         width: "220px",
         borderRadius: "10px",
       }}
