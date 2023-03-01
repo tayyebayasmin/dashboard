@@ -133,7 +133,7 @@ const HistoryPage = ({ windowDimenion }) => {
             />
           </Box>
         </Box>
-        <BarChart />
+        <BarChart windowDimenion={windowDimenion}/>
       </Box>
     </Box>
   );

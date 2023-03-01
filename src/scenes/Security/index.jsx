@@ -23,7 +23,7 @@ const SecurityPage = ({ windowDimenion }) => {
     setPwd(event.target.value);
   };
   return (
-    <Box m="20px">
+    <Box m="20px" mb='60px'>
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header Title="Security" />
       </Box>

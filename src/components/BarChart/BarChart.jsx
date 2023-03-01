@@ -3,10 +3,9 @@ import { ResponsiveBar } from "@nivo/bar";
 import { tokens } from "../../themes";
 import { mockBarData as data } from "../../data/mockData";
 
-const BarChart = ({ isDashboard = false }) => {
+const BarChart = ({ windowDimenion }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-
   return (
     <ResponsiveBar
       data={data}
@@ -45,7 +44,12 @@ const BarChart = ({ isDashboard = false }) => {
       }}
       keys={["Daily Rewards", "7-Days Reward"]}
       indexBy="time"
-      margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
+      margin={{
+        top: 50,
+        right: windowDimenion?.winWidth > 450 && 130,
+        bottom: 50,
+        left: 60,
+      }}
       padding={0.3}
       valueScale={{ type: "linear" }}
       indexScale={{ type: "band", round: true }}
@@ -74,6 +78,11 @@ const BarChart = ({ isDashboard = false }) => {
       axisTop={null}
       axisRight={null}
       axisBottom={{
+        format: (value) => {
+          if (windowDimenion?.winWidth < 450) {
+          return  ``;
+          }
+        },
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
@@ -81,13 +90,13 @@ const BarChart = ({ isDashboard = false }) => {
         legendOffset: 32,
       }}
       axisLeft={{
-        format:value=> `${value} KDA`,
+        format: (value) => `${value} KDA`,
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
       }}
       legends={[
-        {
+         {
           dataFrom: "keys",
           anchor: "bottom-right",
           direction: "column",
@@ -119,12 +128,13 @@ const BarChart = ({ isDashboard = false }) => {
           }}
         >
           <text style={{ color: "white" }}> {indexValue}</text>
-          <Box flexDirection={'row'}>
+          <Box flexDirection={"row"}>
             <Box></Box>
             <Box>
-            
               <text style={{ color: "white" }}>{id}</text>
-              <text style={{ color: "white",marginLeft:'10px' }}>{value}KDA</text>
+              <text style={{ color: "white", marginLeft: "10px" }}>
+                {value}KDA
+              </text>
             </Box>
           </Box>
         </Box>
@@ -139,7 +149,6 @@ const BarChart = ({ isDashboard = false }) => {
       // barAriaLabel={function (e) {
       //   return e.id + ": " + e.formattedValue + " in country: " + e.indexValue;
       // }}
-
     />
   );
 };

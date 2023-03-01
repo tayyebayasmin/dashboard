@@ -22,6 +22,7 @@ import WithdrawRewardsPage from "./scenes/withdrawRewards";
 import { ArrowRightRounded } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import Menu from "@mui/icons-material/Menu";
+import Footer from "./components/Footer";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -47,7 +48,7 @@ function App() {
   return (
     <ColorModeContext.Provider value={colorMode}>
       <div className="app">
-        {windowDimenion.winWidth < 800 && !compressed && <ProSidebar />}
+        {windowDimenion.winWidth < 800 && !compressed && <ProSidebar setClose={setCompressed} close={compressed}/>}
         {windowDimenion.winWidth > 800 && (
           <ProSidebar compressed={compressed} />
         )}
@@ -72,7 +73,7 @@ function App() {
               </Button>
             )}
             <Box mt={windowDimenion.winWidth < 800 ? "4%" : undefined}>
-              <Topbar windowDimenion={windowDimenion.winWidth} />
+              <Topbar compressed={compressed} windowDimenion={windowDimenion.winWidth} />
             </Box>
             <Routes>
               <Route
@@ -136,6 +137,8 @@ function App() {
                 element={<WithdrawRewardsPage />}
               />
             </Routes>
+          {compressed&&
+            <Footer/>}
           </main>
         </ThemeProvider>
       </div>

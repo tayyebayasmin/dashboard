@@ -1,5 +1,5 @@
 import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import { ColorModeContext, tokens } from "../../themes";
@@ -12,7 +12,7 @@ import { NotificationsOutlined, WalletTwoTone } from "@mui/icons-material";
 import CustomizeButton from "../../components/Button/Button";
 import CustomText from "../../components/CustomText/CustomText";
 import TopDropDown from "../../components/TopDropDown";
-const Topbar = ({ windowDimenion }) => {
+const Topbar = ({ compressed }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
@@ -24,9 +24,36 @@ const Topbar = ({ windowDimenion }) => {
   const onPress = (btntext) => {
     setIsSelected(btntext);
   };
+  const [windowDimenion, detectHW] = useState({
+    winWidth: window.innerWidth,
+    winHeight: window.innerHeight,
+  });
+
+  const detectSize = () => {
+    detectHW({
+      winWidth: window.innerWidth,
+      winHeight: window.innerHeight,
+    });
+  };
+  useEffect(() => {
+    window.addEventListener("resize", detectSize);
+
+    return () => {
+      window.removeEventListener("resize", detectSize);
+    };
+  }, [windowDimenion]);
   const location = useLocation();
   return (
-    <Box display="flex" width='100%' flexWrap={"wrap"} justifyContent="space-between" p={2}>
+    <Box
+      display="flex"
+      width="100%"
+      flexWrap={"wrap"}
+      justifyContent="space-between"
+      p={2}
+      flexDirection={
+        windowDimenion.winWidth < 450 ? "column-reverse" : undefined
+      }
+    >
       {location.pathname === "/" ||
       location.pathname == "/funds" ||
       location.pathname == "/funds/overview" ||
@@ -36,7 +63,7 @@ const Topbar = ({ windowDimenion }) => {
       location.pathname == "/payoutshistory" ||
       location.pathname == "/activityhistory" ? (
         <Box
-          display="flex"
+          display={"flex"}
           justifyContent="space-between"
           sx={{
             height: "35px",
@@ -96,18 +123,26 @@ const Topbar = ({ windowDimenion }) => {
         >
           <NotificationsOutlined />
         </IconButton>
-        <IconButton
-          onClick={onPressDropDown}
-          sx={{ color: theme.palette.mode === "dark" ? "white" : "#361956" }}
-        >
-          <CustomText ml="12px" mr="3px" text="Danish" />
-          <PersonOutlinedIcon />
-          {isExapnd ? <ExpandLess /> : <ExpandMore />}
-        </IconButton>
+        {compressed &&
+          <IconButton
+            onClick={onPressDropDown}
+            sx={{ color: theme.palette.mode === "dark" ? "white" : "#361956" }}
+          >
+            <CustomText ml="12px" mr="3px" text="Danish" />
+            <PersonOutlinedIcon />
+            {isExapnd ? <ExpandLess /> : <ExpandMore />}
+          </IconButton>
+        }
       </Box>
-      {isExapnd && (
-        <TopDropDown isExapnd={isExapnd} setIsExpand={setIsExpand} />
-      )}
+      <Box position={"absolute"}>
+        {isExapnd && (
+          <TopDropDown
+            open={isExapnd}
+            setexpand={setIsExpand}
+            handleClose={() => setIsExpand(false)}
+          />
+        )}
+      </Box>
     </Box>
   );
 };

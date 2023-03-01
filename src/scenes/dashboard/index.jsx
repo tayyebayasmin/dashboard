@@ -11,6 +11,7 @@ import LineChart from "../../components/LineChart";
 import AlertDialog from "../../components/ViewMoreDialog";
 import { mockDataProject, mockLineData } from "../../data/mockData";
 import WithDrawModal from "../../components/WithDrawModal";
+import Footer from "../../components/Footer";
 const Dashboard = ({windowDimenion}) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -20,8 +21,10 @@ const Dashboard = ({windowDimenion}) => {
   const [openWithdraw, setOpenWirhdraw] = useState(false);
   const handleCloseWithdraw = () => setOpenWirhdraw(false);
   var date = new Date();
+  
   return (
-    <Box m="3%" sx={{ marginInline: "3%" }}>
+    <>
+    <Box m="3%" mb='60px' sx={{ marginInline: "3%" }}>
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header Title="Dashboard" />
       </Box>
@@ -176,7 +179,7 @@ const Dashboard = ({windowDimenion}) => {
             />
           </Box>
         </Box>
-        <BarChart />
+        <BarChart windowDimenion={windowDimenion}/>
       </Box>
       <Box
         display={"flex"}
@@ -308,6 +311,8 @@ const Dashboard = ({windowDimenion}) => {
         )}
       </Box>
     </Box>
+    <Footer/>
+    </>
   );
 };
 export default Dashboard;

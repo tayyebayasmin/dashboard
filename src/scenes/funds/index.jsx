@@ -14,6 +14,7 @@ import { mockDataFunds, mockDataProject } from "../../data/mockData";
 import Header from "../../components/Header/Header";
 import PauseAllPauouts from "../../components/PausePayoutModal";
 import AddNewAccount from "../../components/AddNewAccount";
+import Footer from "../../components/Footer";
 const FundsPage = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);

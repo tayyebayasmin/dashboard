@@ -41,7 +41,7 @@ const RewardsPage = ({windowDimenion}) => {
   };
 
   return (
-    <Box m="20px">
+    <Box m="20px" mb='60px'>
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header Title="Account" />
       </Box>

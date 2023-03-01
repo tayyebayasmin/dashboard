@@ -16,7 +16,7 @@ const KDAAccountPage = ({windowDimenion}) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
-    <Box ml="3%" mr="3%" mt="30px">
+    <Box ml="3%" mr="3%" mt="30px" mb="50px">
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header Title="KDA Account" />
       </Box>

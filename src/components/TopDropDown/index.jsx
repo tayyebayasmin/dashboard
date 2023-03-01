@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Box, useTheme } from "@mui/material";
+import { Box, useTheme ,IconButton} from "@mui/material";
 import { tokens } from "../../themes";
 import CustomText from "../CustomText/CustomText";
 import {
@@ -11,9 +11,15 @@ import {
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { useState,useEffect } from "react";
-export default function TopDropDown({setexpand }) {
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import {
+  Close,
+} from "@mui/icons-material";
+export default function TopDropDown({ open,setexpand, handleClose }) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [num, setnum] = React.useState("xxxxxxxxxxxxx");
   const [windowDimenion, detectHW] = useState({
     winWidth: window.innerWidth,
     winHeight: window.innerHeight,
@@ -32,17 +38,37 @@ export default function TopDropDown({setexpand }) {
       window.removeEventListener("resize", detectSize);
     };
   }, [windowDimenion]);
+  
   return (
-    <Box
+    <div>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        PaperProps={{
+          style: {
+            height:'295px',
+            position: "absolute",
+            backgroundColor: "#4A3067",
+            padding: "10px",
+            right: "1%",
+            zIndex:'10',
+            top:windowDimenion.winWidth<450?'45px': "5%",
+            width: "250px",
+            borderRadius: "10px",
+          },
+        }}
+        hideBackdrop='false'
+      >
+        <Box
       sx={{
         position: "absolute",
-        backgroundColor: "#28094A",
         opacity: "0.9",
         padding: "10px",
         right: "1%",
         zIndex:'10',
-        top:windowDimenion.winWidth<450?'120px': "5%",
-        width: "220px",
+        width: "250px",
         borderRadius: "10px",
       }}
     >
@@ -158,5 +184,7 @@ export default function TopDropDown({setexpand }) {
         </Box>
       </Link>
     </Box>
+      </Dialog>
+    </div>
   );
 }

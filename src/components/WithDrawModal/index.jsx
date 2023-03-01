@@ -6,8 +6,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import CustomText from "../CustomText/CustomText";
 import {
   Close,
-  KeyboardArrowRight,
-  ReadMoreOutlined,
+
 } from "@mui/icons-material";
 export default function WithDrawModal({ open, handleClose }) {
   const theme = useTheme();

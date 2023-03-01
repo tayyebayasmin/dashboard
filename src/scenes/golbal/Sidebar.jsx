@@ -4,11 +4,24 @@ import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { tokens } from "../../themes";
-import { Dashboard, ExpandMore, LiveHelpRounded, MilitaryTechOutlined } from "@mui/icons-material";
-const Item = ({ title, to, icon, selected, setSelected, rightIcon }) => {
+import {
+  Dashboard,
+  ExpandMore,
+  LiveHelpRounded,
+  MilitaryTechOutlined,
+} from "@mui/icons-material";
+const Item = ({
+  setclose,
+  close,
+  title,
+  to,
+  icon,
+  selected,
+  setSelected,
+  rightIcon,
+}) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-
   return (
     <MenuItem
       active={selected === title}
@@ -19,7 +32,10 @@ const Item = ({ title, to, icon, selected, setSelected, rightIcon }) => {
           color: "red",
         },
       }}
-      onClick={() => setSelected(title)}
+      onClick={() => {
+       setclose(!close);
+        setSelected(title);
+      }}
       icon={
         title === "Projects" && selected === "Projects" ? (
           <img width={"22px"} src={`../../assets/DarkProject.png`} />
@@ -35,6 +51,8 @@ const Item = ({ title, to, icon, selected, setSelected, rightIcon }) => {
 const ItemFunds = ({
   title,
   to,
+  setclose,
+  close,
   OnPressIcon,
   selected,
   setSelected,
@@ -55,6 +73,7 @@ const ItemFunds = ({
         if (title === "Financial Account") {
           OnPressIcon();
         }
+        setclose(!close)
       }}
     >
       <Box
@@ -69,7 +88,7 @@ const ItemFunds = ({
     </MenuItem>
   );
 };
-const ProSidebar = ({compressed}) => {
+const ProSidebar = ({ compressed, setClose, close }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const location = useLocation();
@@ -82,22 +101,23 @@ const ProSidebar = ({compressed}) => {
     <Sidebar
       backgroundColor="#28094A"
       style={{
-        zIndex:!compressed?10:undefined,
-        position:!compressed?'absolute':undefined,
-        top:0,
-        bottom:0,
-        minHeight:'100vh',
+        zIndex: !compressed ? 10 : undefined,
+        position: !compressed ? "absolute" : undefined,
+        top: 0,
+        bottom: 0,
+        minHeight: "100vh",
       }}
     >
-      
       <Menu
         iconShape="square"
         menuItemStyles={{
-          button: ({ level}) => {
+          button: ({ level }) => {
             if (level === 0) {
               return {
                 "&:hover": {
-                  color: "#28094A !important",
+                  color: "#white",
+                  backgroundColor: "grey",
+                  opacity: "0.5",
                 },
               };
             }
@@ -126,7 +146,9 @@ const ProSidebar = ({compressed}) => {
                 title="Dashboard"
                 icon={<Dashboard />}
                 selected={selected}
+                setclose={setClose}
                 setSelected={setSelected}
+                close={close}
               />
             </Link>
 
@@ -135,7 +157,9 @@ const ProSidebar = ({compressed}) => {
                 title="Projects"
                 icon={<img width={"22px"} src={`../../assets/Project.png`} />}
                 selected={selected}
+                setclose={setClose}
                 setSelected={setSelected}
+                close={close}
               />
             </Link>
             <Link to="help">
@@ -143,7 +167,9 @@ const ProSidebar = ({compressed}) => {
                 title="Help"
                 icon={<LiveHelpRounded />}
                 selected={selected}
+                setclose={setClose}
                 setSelected={setSelected}
+                close={close}
               />
             </Link>
             {/* <Link to="/rules"> */}
@@ -157,9 +183,11 @@ const ProSidebar = ({compressed}) => {
             <Link to="/rewards">
               <Item
                 title="Rewards"
-                icon={<MilitaryTechOutlined/> }
+                icon={<MilitaryTechOutlined />}
                 selected={selected}
+                setclose={setClose}
                 setSelected={setSelected}
+                close={close}
               />
             </Link>
           </Box>
@@ -175,6 +203,8 @@ const ProSidebar = ({compressed}) => {
                 title="Account"
                 selected={selectedReward}
                 setSelected={setSelecteReward}
+                setclose={setClose}
+                close={close}
               />
             </Link>
             <Link to={"/security"}>
@@ -182,6 +212,8 @@ const ProSidebar = ({compressed}) => {
                 title="Security"
                 selected={selectedReward}
                 setSelected={setSelecteReward}
+                setclose={setClose}
+                close={close}
               />
             </Link>
             <Link to={"/devices"}>
@@ -189,14 +221,18 @@ const ProSidebar = ({compressed}) => {
                 title="Devices"
                 selected={selectedReward}
                 setSelected={setSelecteReward}
-              />
+                setclose={setClose}
+                close={close}
+              />             
             </Link>
             <Link to={"/accessProfiles"}>
               <Item
                 title="Access Profiles"
                 selected={selectedReward}
                 setSelected={setSelecteReward}
-              />
+                setclose={setClose}
+                close={close}
+              />              
             </Link>
           </Box>
         )}
@@ -221,6 +257,8 @@ const ProSidebar = ({compressed}) => {
                     title="Overview"
                     selected={selectedFunds}
                     setSelected={setSelectedFunds}
+                    setclose={setClose}
+                    close={close}
                   />
                 </Link>
                 <Link to={"/funds/kdaaccount"}>
@@ -228,6 +266,8 @@ const ProSidebar = ({compressed}) => {
                     title="KDA Account"
                     selected={selectedFunds}
                     setSelected={setSelectedFunds}
+                    setclose={setClose}
+                    close={close}
                   />
                 </Link>
               </>
@@ -237,6 +277,8 @@ const ProSidebar = ({compressed}) => {
                 title="Wallets"
                 selected={selectedFunds}
                 setSelected={setSelectedFunds}
+                setclose={setClose}
+                close={close}
               />
             </Link>
           </Box>
@@ -251,6 +293,8 @@ const ProSidebar = ({compressed}) => {
                 title="Rewards History"
                 selected={selectedHistory}
                 setSelected={setSelectedHistory}
+                setclose={setClose}
+                close={close}
               />
             </Link>
             <Link to={"/payoutshistory"}>
@@ -258,6 +302,8 @@ const ProSidebar = ({compressed}) => {
                 title="Payouts History"
                 selected={selectedHistory}
                 setSelected={setSelectedHistory}
+                setclose={setClose}
+                close={close}
               />
             </Link>
             <Link to={"/activityhistory"}>
@@ -265,6 +311,8 @@ const ProSidebar = ({compressed}) => {
                 title="Activity History"
                 selected={selectedHistory}
                 setSelected={setSelectedHistory}
+                setclose={setClose}
+                close={close}
               />
             </Link>
           </Box>
