@@ -12,7 +12,7 @@ import { NotificationsOutlined, WalletTwoTone } from "@mui/icons-material";
 import CustomizeButton from "../../components/Button/Button";
 import CustomText from "../../components/CustomText/CustomText";
 import TopDropDown from "../../components/TopDropDown";
-const Topbar = ({ compressed }) => {
+const Topbar = ({ compressed, sel, setSel,setHelp }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
@@ -43,6 +43,10 @@ const Topbar = ({ compressed }) => {
     };
   }, [windowDimenion]);
   const location = useLocation();
+  useEffect(() => {
+    sel && setIsSelected("Mining");
+    setSel(false);
+  });
   return (
     <Box
       display="flex"
@@ -56,12 +60,7 @@ const Topbar = ({ compressed }) => {
     >
       {location.pathname === "/" ||
       location.pathname == "/funds" ||
-      location.pathname == "/funds/overview" ||
-      location.pathname == "/funds/kdaaccount" ||
-      location.pathname == "/wallets" ||
-      location.pathname == "/history" ||
-      location.pathname == "/payoutshistory" ||
-      location.pathname == "/activityhistory" ? (
+      location.pathname == "/history" ? (
         <Box
           display={"flex"}
           justifyContent="space-between"
@@ -105,7 +104,13 @@ const Topbar = ({ compressed }) => {
       )}
       <Box display="flex" alignItems="center">
         <CustomText text="Feedback" />
+        <Link
+        to={'/help'}
+        onClick={()=>setHelp(true)}
+        style={{textDecoration:'none'}}
+        >
         <CustomText text="Help" ml="10px" />
+        </Link>
         <IconButton
           sx={{
             marginLeft: "10px",
@@ -123,7 +128,7 @@ const Topbar = ({ compressed }) => {
         >
           <NotificationsOutlined />
         </IconButton>
-        {compressed &&
+        {compressed && (
           <IconButton
             onClick={onPressDropDown}
             sx={{ color: theme.palette.mode === "dark" ? "white" : "#361956" }}
@@ -132,7 +137,7 @@ const Topbar = ({ compressed }) => {
             <PersonOutlinedIcon />
             {isExapnd ? <ExpandLess /> : <ExpandMore />}
           </IconButton>
-        }
+        )}
       </Box>
       <Box position={"absolute"}>
         {isExapnd && (

@@ -16,7 +16,7 @@ import { useState } from "react";
 const WithdrawRewardsPage = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [withdraw, setWithdraw] = useState(true);
+  const [withdraw, setWithdraw] = useState(false);
   const handleClose = () => setWithdraw(false);
   return (
     <Box ml="3%" mr="3%" mt="30px">

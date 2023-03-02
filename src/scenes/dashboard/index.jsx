@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useTheme, Box, IconButton, Button, TextField } from "@mui/material";
 import { tokens } from "../../themes";
+import { AdvancedRealTimeChart } from "react-ts-tradingview-widgets";
 import Header from "../../components/Header/Header";
 import CustomText from "../../components/CustomText/CustomText";
 import Icons from "../../components/Icons/Icon";

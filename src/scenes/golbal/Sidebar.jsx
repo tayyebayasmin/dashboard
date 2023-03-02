@@ -22,6 +22,26 @@ const Item = ({
 }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const location = useLocation();
+  const [windowDimenion, detectHW] = useState
+  ({
+    winWidth: window.innerWidth,
+    winHeight: window.innerHeight,
+  });
+
+  const detectSize = () => {
+    detectHW({
+      winWidth: window.innerWidth,
+      winHeight: window.innerHeight,
+    });
+  };
+  useEffect(() => {
+    window.addEventListener("resize", detectSize);
+
+    return () => {
+      window.removeEventListener("resize", detectSize);
+    };
+  }, [windowDimenion]);
   return (
     <MenuItem
       active={selected === title}
@@ -33,8 +53,8 @@ const Item = ({
         },
       }}
       onClick={() => {
-       setclose(!close);
         setSelected(title);
+        windowDimenion.winWidth<800&& setclose(!close);
       }}
       icon={
         title === "Projects" && selected === "Projects" ? (
@@ -88,7 +108,7 @@ const ItemFunds = ({
     </MenuItem>
   );
 };
-const ProSidebar = ({ compressed, setClose, close }) => {
+const ProSidebar = ({setSel,help,setHelp, compressed, setClose, close }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const location = useLocation();
@@ -97,6 +117,11 @@ const ProSidebar = ({ compressed, setClose, close }) => {
   const [isCollapse, setCollapse] = useState(false);
   const [selectedHistory, setSelectedHistory] = useState("Rewards History");
   const [selectedReward, setSelecteReward] = useState("Account");
+  useEffect(()=>{
+    help &&setSelected("Help")
+    setHelp(false)
+  })
+  
   return (
     <Sidebar
       backgroundColor="#28094A"
@@ -132,6 +157,13 @@ const ProSidebar = ({ compressed, setClose, close }) => {
                 width="100px"
                 height="100px"
                 src={`../../assets/logo.png`}
+                onClick={()=>{
+                  setSelected('Dashboard')
+                  setSel(true)
+                  setSelecteReward('Account')
+                  setSelectedHistory('Rewards History')
+                  setSelectedFunds("Financial Account")
+                }}
               />
             </Link>
           </Box>
@@ -180,7 +212,7 @@ const ProSidebar = ({ compressed, setClose, close }) => {
               // setSelected={setSelected}
             />
             {/* </Link> */}
-            <Link to="/rewards">
+            <Link to="/withdrawrewards">
               <Item
                 title="Rewards"
                 icon={<MilitaryTechOutlined />}

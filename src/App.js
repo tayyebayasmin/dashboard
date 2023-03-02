@@ -26,12 +26,13 @@ import Footer from "./components/Footer";
 
 function App() {
   const [theme, colorMode] = useMode();
+  const [sel,setSel]=useState(false)
+  const [help,setHelp]=useState(false)
   const [compressed, setCompressed] = useState(true);
   const [windowDimenion, detectHW] = useState({
     winWidth: window.innerWidth,
     winHeight: window.innerHeight,
   });
-
   const detectSize = () => {
     detectHW({
       winWidth: window.innerWidth,
@@ -40,7 +41,6 @@ function App() {
   };
   useEffect(() => {
     window.addEventListener("resize", detectSize);
-
     return () => {
       window.removeEventListener("resize", detectSize);
     };
@@ -48,9 +48,9 @@ function App() {
   return (
     <ColorModeContext.Provider value={colorMode}>
       <div className="app">
-        {windowDimenion.winWidth < 800 && !compressed && <ProSidebar setClose={setCompressed} close={compressed}/>}
+        {windowDimenion.winWidth < 800 && !compressed && <ProSidebar setSel={setSel} help={help} setHelp={setHelp} setClose={setCompressed} close={compressed}/>}
         {windowDimenion.winWidth > 800 && (
-          <ProSidebar compressed={compressed} />
+          <ProSidebar setSel={setSel}help={help} setHelp={setHelp} compressed={compressed} />
         )}
         <ThemeProvider theme={theme}>
           <CssBaseline />
@@ -73,7 +73,7 @@ function App() {
               </Button>
             )}
             <Box mt={windowDimenion.winWidth < 800 ? "4%" : undefined}>
-              <Topbar compressed={compressed} windowDimenion={windowDimenion.winWidth} />
+              <Topbar setSel={setSel} setHelp={setHelp} sel={sel} compressed={compressed} windowDimenion={windowDimenion.winWidth} />
             </Box>
             <Routes>
               <Route

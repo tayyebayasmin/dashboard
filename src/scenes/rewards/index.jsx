@@ -398,12 +398,6 @@ const RewardsPage = ({windowDimenion}) => {
             <CustomText text={"Newsletter"} />
           </Box>
           <CustomText text={"Recieve our newsletter."} />
-          <Link
-            to={"/withdrawrewards"}
-            style={{
-              textDecoration: "none",
-            }}
-          >
             <Button
               sx={{
                 width: "140px",
@@ -416,7 +410,6 @@ const RewardsPage = ({windowDimenion}) => {
             >
               Save Changes
             </Button>
-          </Link>
           <Button
             sx={{
               display: "flex",
