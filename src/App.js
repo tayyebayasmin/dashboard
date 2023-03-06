@@ -1,7 +1,7 @@
 import { ColorModeContext, useMode } from "./themes";
 import { Box, Button, CssBaseline, ThemeProvider } from "@mui/material";
 import Topbar from "./scenes/golbal/Topbar";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import Dashboard from "./scenes/dashboard";
 import HelpPage from "./scenes/help";
 import FundsPage from "./scenes/funds";
@@ -23,11 +23,13 @@ import { ArrowRightRounded } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import Menu from "@mui/icons-material/Menu";
 import Footer from "./components/Footer";
+import OutsideClickHandler from "react-outside-click-handler";
+import CustomText from "./components/CustomText/CustomText";
 
 function App() {
   const [theme, colorMode] = useMode();
-  const [sel,setSel]=useState(false)
-  const [help,setHelp]=useState(false)
+  const [sel, setSel] = useState(false);
+  const [help, setHelp] = useState(false);
   const [compressed, setCompressed] = useState(true);
   const [windowDimenion, detectHW] = useState({
     winWidth: window.innerWidth,
@@ -48,9 +50,28 @@ function App() {
   return (
     <ColorModeContext.Provider value={colorMode}>
       <div className="app">
-        {windowDimenion.winWidth < 800 && !compressed && <ProSidebar setSel={setSel} help={help} setHelp={setHelp} setClose={setCompressed} close={compressed}/>}
+        <OutsideClickHandler
+          onOutsideClick={() => {
+            setCompressed(true);
+          }}
+        >
+          {windowDimenion.winWidth < 800 && !compressed && (
+            <ProSidebar
+              setSel={setSel}
+              help={help}
+              setHelp={setHelp}
+              setClose={setCompressed}
+              close={compressed}
+            />
+          )}
+        </OutsideClickHandler>
         {windowDimenion.winWidth > 800 && (
-          <ProSidebar setSel={setSel}help={help} setHelp={setHelp} compressed={compressed} />
+          <ProSidebar
+            setSel={setSel}
+            help={help}
+            setHelp={setHelp}
+            compressed={compressed}
+          />
         )}
         <ThemeProvider theme={theme}>
           <CssBaseline />
@@ -59,7 +80,7 @@ function App() {
               <Button
                 sx={{
                   position: "absolute",
-                  right: 0,
+                  left: -25,
                 }}
                 onClick={() => setCompressed(!compressed)}
               >
@@ -72,8 +93,32 @@ function App() {
                 />
               </Button>
             )}
+            {windowDimenion.winWidth < 500 && (
+              <Box
+                display={"flex"}
+                position={"absolute"}
+                right="10px"
+                top="10px"
+                flexDirection={"row"}
+              >
+                <CustomText text="Feedback" />
+                <Link
+                  to={"/help"}
+                  onClick={() => setHelp(true)}
+                  style={{ textDecoration: "none" }}
+                >
+                  <CustomText text="Help" ml="10px" />
+                </Link>
+              </Box>
+            )}
             <Box mt={windowDimenion.winWidth < 800 ? "4%" : undefined}>
-              <Topbar setSel={setSel} setHelp={setHelp} sel={sel} compressed={compressed} windowDimenion={windowDimenion.winWidth} />
+              <Topbar
+                setSel={setSel}
+                setHelp={setHelp}
+                sel={sel}
+                compressed={compressed}
+                windowDimenion={windowDimenion.winWidth}
+              />
             </Box>
             <Routes>
               <Route
@@ -129,7 +174,7 @@ function App() {
               <Route
                 exact
                 path="/accessProfiles"
-                element={<AccessProfilesPage windowDimenion={windowDimenion}/>}
+                element={<AccessProfilesPage windowDimenion={windowDimenion} />}
               />
               <Route
                 exact
@@ -137,8 +182,7 @@ function App() {
                 element={<WithdrawRewardsPage />}
               />
             </Routes>
-          {compressed&&
-            <Footer/>}
+            {compressed && <Footer />}
           </main>
         </ThemeProvider>
       </div>

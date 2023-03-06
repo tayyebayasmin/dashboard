@@ -54,7 +54,7 @@ export default function TopDropDown({ open,setexpand, handleClose }) {
             padding: "10px",
             right: "1%",
             zIndex:'10',
-            top:windowDimenion.winWidth<450?'45px': "5%",
+            top:windowDimenion.winWidth<450?'70px': "5%",
             width: "250px",
             borderRadius: "10px",
           },

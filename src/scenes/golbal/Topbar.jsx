@@ -12,7 +12,7 @@ import { NotificationsOutlined, WalletTwoTone } from "@mui/icons-material";
 import CustomizeButton from "../../components/Button/Button";
 import CustomText from "../../components/CustomText/CustomText";
 import TopDropDown from "../../components/TopDropDown";
-const Topbar = ({ compressed, sel, setSel,setHelp }) => {
+const Topbar = ({ compressed, sel, setSel, setHelp }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
@@ -54,6 +54,7 @@ const Topbar = ({ compressed, sel, setSel,setHelp }) => {
       flexWrap={"wrap"}
       justifyContent="space-between"
       p={2}
+      mt={windowDimenion.winWidth<450?'30px':undefined}
       flexDirection={
         windowDimenion.winWidth < 450 ? "column-reverse" : undefined
       }
@@ -102,43 +103,70 @@ const Topbar = ({ compressed, sel, setSel,setHelp }) => {
       ) : (
         <Box></Box>
       )}
-      <Box display="flex" alignItems="center">
-        <CustomText text="Feedback" />
-        <Link
-        to={'/help'}
-        onClick={()=>setHelp(true)}
-        style={{textDecoration:'none'}}
+      {windowDimenion.winWidth>500||
+      (windowDimenion.winWidth<500&& location.pathname==='/')
+      &&
+        <Box
+          display="flex"
+          alignItems="center"
+          mt={windowDimenion.winWidth < 500 ? "20px" : undefined}
         >
-        <CustomText text="Help" ml="10px" />
-        </Link>
-        <IconButton
-          sx={{
-            marginLeft: "10px",
-            color: theme.palette.mode === "dark" ? "white" : "#361956",
-          }}
-        >
-          <WalletTwoTone />
-          <CustomText ml="4px" text=" 0 USD" />
-        </IconButton>
-        {windowDimenion.winWidth > 500 && (
-          <MaterialUISwitch sx={{ m: 1 }} onClick={colorMode.toggleColorMode} />
-        )}
-        <IconButton
-          sx={{ color: theme.palette.mode === "dark" ? "white" : "#361956" }}
-        >
-          <NotificationsOutlined />
-        </IconButton>
-        {compressed && (
+          {windowDimenion.winWidth > 500 && (
+            <>
+              <CustomText text="Feedback" />
+              <Link
+                to={"/help"}
+                onClick={() => setHelp(true)}
+                style={{ textDecoration: "none" }}
+              >
+                <CustomText text="Help" ml="10px" />
+              </Link>
+            </>
+          )}
           <IconButton
-            onClick={onPressDropDown}
-            sx={{ color: theme.palette.mode === "dark" ? "white" : "#361956" }}
+            sx={{
+              marginLeft: "10px",
+              color: theme.palette.mode === "dark" ? "white" : "#361956",
+            }}
           >
-            <CustomText ml="12px" mr="3px" text="Danish" />
-            <PersonOutlinedIcon />
-            {isExapnd ? <ExpandLess /> : <ExpandMore />}
+            <WalletTwoTone />
+            <CustomText
+              ml={windowDimenion.winWidth < 500 ? "10px" : "4px"}
+              text=" 0 USD"
+            />
           </IconButton>
-        )}
-      </Box>
+          {windowDimenion.winWidth > 500 && (
+            <MaterialUISwitch
+              sx={{ m: 1 }}
+              onClick={colorMode.toggleColorMode}
+            />
+          )}
+          <IconButton
+            sx={{
+              ml: windowDimenion.winWidth < 500 ? "65px" : undefined,
+              color: theme.palette.mode === "dark" ? "white" : "#361956",
+            }}
+          >
+            <NotificationsOutlined />
+          </IconButton>
+          {compressed && (
+            <IconButton
+              onClick={onPressDropDown}
+              sx={{
+                color: theme.palette.mode === "dark" ? "white" : "#361956",
+              }}
+            >
+              <CustomText
+                ml={windowDimenion.winWidth < 500 ? "70px" : "12px"}
+                mr="3px"
+                text="Danish"
+              />
+              <PersonOutlinedIcon />
+              {isExapnd ? <ExpandLess /> : <ExpandMore />}
+            </IconButton>
+          )}
+        </Box>
+      }
       <Box position={"absolute"}>
         {isExapnd && (
           <TopDropDown
