@@ -103,9 +103,8 @@ const Topbar = ({ compressed, sel, setSel, setHelp }) => {
       ) : (
         <Box></Box>
       )}
-      {windowDimenion.winWidth>500||
-      (windowDimenion.winWidth<500&& location.pathname==='/')
-      &&
+      {
+      (windowDimenion.winWidth>=500)?
         <Box
           display="flex"
           alignItems="center"
@@ -166,6 +165,68 @@ const Topbar = ({ compressed, sel, setSel, setHelp }) => {
             </IconButton>
           )}
         </Box>
+        :(windowDimenion.winWidth<500&&location.pathname==='/')?
+        <Box
+        display="flex"
+        alignItems="center"
+        mt={windowDimenion.winWidth < 500 ? "20px" : undefined}
+      >
+        {windowDimenion.winWidth > 500 && (
+          <>
+            <CustomText text="Feedback" />
+            <Link
+              to={"/help"}
+              onClick={() => setHelp(true)}
+              style={{ textDecoration: "none" }}
+            >
+              <CustomText text="Help" ml="10px" />
+            </Link>
+          </>
+        )}
+        <IconButton
+          sx={{
+            marginLeft: "10px",
+            color: theme.palette.mode === "dark" ? "white" : "#361956",
+          }}
+        >
+          <WalletTwoTone />
+          <CustomText
+            ml={windowDimenion.winWidth < 500 ? "10px" : "4px"}
+            text=" 0 USD"
+          />
+        </IconButton>
+        {windowDimenion.winWidth > 500 && (
+          <MaterialUISwitch
+            sx={{ m: 1 }}
+            onClick={colorMode.toggleColorMode}
+          />
+        )}
+        <IconButton
+          sx={{
+            ml: windowDimenion.winWidth < 500 ? "65px" : undefined,
+            color: theme.palette.mode === "dark" ? "white" : "#361956",
+          }}
+        >
+          <NotificationsOutlined />
+        </IconButton>
+        {compressed && (
+          <IconButton
+            onClick={onPressDropDown}
+            sx={{
+              color: theme.palette.mode === "dark" ? "white" : "#361956",
+            }}
+          >
+            <CustomText
+              ml={windowDimenion.winWidth < 500 ? "70px" : "12px"}
+              mr="3px"
+              text="Danish"
+            />
+            <PersonOutlinedIcon />
+            {isExapnd ? <ExpandLess /> : <ExpandMore />}
+          </IconButton>
+        )}
+      </Box>
+      :<view/>
       }
       <Box position={"absolute"}>
         {isExapnd && (
